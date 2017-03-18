@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -40,6 +44,17 @@ public class Start {
 	 * Create the application.
 	 */
 	public Start() {
+		  try {         
+	          	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());     
+	     	}catch (ClassNotFoundException e) {
+	     	        e.printStackTrace();     
+	        }catch (InstantiationException e) {   
+	                e.printStackTrace();     
+	        }catch (IllegalAccessException e) {         
+	        		e.printStackTrace();
+	        } catch (UnsupportedLookAndFeelException e) {
+	                e.printStackTrace();
+	        }
 		initialize();
 	}
 
