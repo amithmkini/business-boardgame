@@ -8,5 +8,7 @@ package com.it306.test;
 public class Test {
     public static void main(String[] args) {
         System.out.println("Hello, world!");
+        Dice a = new Dice();
+        System.out.println("Dice output: " + a.roll());
     }
 }

@@ -1,5 +1,10 @@
 package com.it306.test.UI;
 
+/* 
+ * The is the main splash screen of the game.
+ * Created by Amith Kini on 12-03-2017
+ */
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -51,6 +56,7 @@ public class Start {
 		lblBusiness.setForeground(Color.RED);
 		lblBusiness.setFont(new Font("Tahoma", Font.BOLD, 51));
 		lblBusiness.setBounds(226, 31, 268, 86);
+		lblBusiness.setPreferredSize(lblBusiness.getPreferredSize());
 		frame.getContentPane().add(lblBusiness);
 		
 		JLabel lblPlayer = new JLabel("Player 1");
@@ -63,6 +69,7 @@ public class Start {
 		textField.setColumns(10);
 		
 		JLabel lblPlr1 = new JLabel("");
+		lblPlr1.setLabelFor(textField);
 		lblPlr1.setBounds(519, 217, 56, 16);
 		frame.getContentPane().add(lblPlr1);
 		
@@ -76,6 +83,7 @@ public class Start {
 		textField_1.setColumns(10);
 		
 		JLabel lblPlr2 = new JLabel("");
+		lblPlr2.setLabelFor(textField_1);
 		lblPlr2.setBounds(519, 278, 56, 16);
 		frame.getContentPane().add(lblPlr2);
 		
