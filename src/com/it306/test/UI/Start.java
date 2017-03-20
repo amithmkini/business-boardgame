@@ -1,8 +1,8 @@
 package com.it306.test.UI;
 
-/* 
+/** 
  * The is the main splash screen of the game.
- * Created by Amith Kini on 12-03-2017
+ * @author Amith Kini
  */
 
 import java.awt.EventQueue;
@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
+//import javax.swing.LookAndFeel;
+//import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
