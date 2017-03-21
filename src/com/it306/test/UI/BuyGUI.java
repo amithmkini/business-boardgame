@@ -1,5 +1,14 @@
 package com.it306.test.UI;
 
+/**
+ * This is the dialog box which opens on player wishing to buy
+ * property from other players. This is currently not added to
+ * the main project.
+ * 
+ * @author Amith Kini
+ */
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -53,22 +62,22 @@ public class BuyGUI {
 		frame.getContentPane().add(label);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(256, 127, 172, 22);
+		comboBox.setBounds(453, 127, 172, 22);
 		frame.getContentPane().add(comboBox);
 		
 		JLabel label_1 = new JLabel("Select a player");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_1.setBounds(83, 122, 137, 31);
+		label_1.setBounds(304, 122, 137, 31);
 		frame.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("Enter money");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2.setBounds(83, 286, 125, 42);
+		label_2.setBounds(31, 115, 125, 42);
 		frame.getContentPane().add(label_2);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(214, 298, 116, 22);
+		textField.setBounds(167, 127, 116, 22);
 		frame.getContentPane().add(textField);
 	}
 
