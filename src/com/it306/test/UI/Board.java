@@ -95,112 +95,124 @@ public class Board {
 		frame.getContentPane().add(label_9);
 		
 		JLabel label_10 = new JLabel("");
-		label_10.setBounds(0, 707, 119, 71);
+		label_10.setBounds(0, 779, 119, 116);
 		frame.getContentPane().add(label_10);
 		
 		JLabel label_11 = new JLabel("");
-		label_11.setBounds(0, 634, 119, 71);
+		label_11.setBounds(0, 707, 119, 71);
 		frame.getContentPane().add(label_11);
 		
 		JLabel label_12 = new JLabel("");
-		label_12.setBounds(0, 560, 119, 71);
+		label_12.setBounds(0, 634, 119, 71);
 		frame.getContentPane().add(label_12);
 		
 		JLabel label_13 = new JLabel("");
-		label_13.setBounds(0, 486, 119, 71);
+		label_13.setBounds(0, 560, 119, 71);
 		frame.getContentPane().add(label_13);
 		
 		JLabel label_14 = new JLabel("");
-		label_14.setBounds(0, 412, 119, 71);
+		label_14.setBounds(0, 486, 119, 71);
 		frame.getContentPane().add(label_14);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setBounds(0, 339, 119, 71);
+		label_15.setBounds(0, 412, 119, 71);
 		frame.getContentPane().add(label_15);
 		
 		JLabel label_16 = new JLabel("");
-		label_16.setBounds(0, 265, 119, 71);
+		label_16.setBounds(0, 339, 119, 71);
 		frame.getContentPane().add(label_16);
 		
 		JLabel label_17 = new JLabel("");
-		label_17.setBounds(0, 191, 119, 71);
+		label_17.setBounds(0, 265, 119, 71);
 		frame.getContentPane().add(label_17);
 		
 		JLabel label_18 = new JLabel("");
-		label_18.setBounds(0, 117, 119, 71);
+		label_18.setBounds(0, 191, 119, 71);
 		frame.getContentPane().add(label_18);
 		
 		JLabel label_19 = new JLabel("");
-		label_19.setBounds(118, 0, 74, 116);
+		label_19.setBounds(0, 117, 119, 71);
 		frame.getContentPane().add(label_19);
 		
 		JLabel label_20 = new JLabel("");
-		label_20.setBounds(192, 0, 74, 116);
+		label_20.setBounds(0, 0, 119, 116);
 		frame.getContentPane().add(label_20);
 		
 		JLabel label_21 = new JLabel("");
-		label_21.setBounds(265, 0, 74, 116);
+		label_21.setBounds(118, 0, 74, 116);
 		frame.getContentPane().add(label_21);
 		
 		JLabel label_22 = new JLabel("");
-		label_22.setBounds(340, 0, 74, 116);
+		label_22.setBounds(192, 0, 74, 116);
 		frame.getContentPane().add(label_22);
 		
 		JLabel label_23 = new JLabel("");
-		label_23.setBounds(414, 0, 74, 116);
+		label_23.setBounds(265, 0, 74, 116);
 		frame.getContentPane().add(label_23);
 		
 		JLabel label_24 = new JLabel("");
-		label_24.setBounds(487, 0, 74, 116);
+		label_24.setBounds(340, 0, 74, 116);
 		frame.getContentPane().add(label_24);
 		
 		JLabel label_25 = new JLabel("");
-		label_25.setBounds(562, 0, 74, 116);
+		label_25.setBounds(414, 0, 74, 116);
 		frame.getContentPane().add(label_25);
 		
 		JLabel label_26 = new JLabel("");
-		label_26.setBounds(636, 0, 74, 116);
+		label_26.setBounds(487, 0, 74, 116);
 		frame.getContentPane().add(label_26);
 		
 		JLabel label_27 = new JLabel("");
-		label_27.setBounds(709, 0, 74, 116);
+		label_27.setBounds(562, 0, 74, 116);
 		frame.getContentPane().add(label_27);
 		
 		JLabel label_28 = new JLabel("");
-		label_28.setBounds(785, 117, 119, 71);
+		label_28.setBounds(636, 0, 74, 116);
 		frame.getContentPane().add(label_28);
 		
 		JLabel label_29 = new JLabel("");
-		label_29.setBounds(785, 191, 119, 71);
+		label_29.setBounds(709, 0, 74, 116);
 		frame.getContentPane().add(label_29);
 		
 		JLabel label_30 = new JLabel("");
-		label_30.setBounds(785, 265, 119, 71);
+		label_30.setBounds(785, 0, 119, 116);
 		frame.getContentPane().add(label_30);
 		
 		JLabel label_31 = new JLabel("");
-		label_31.setBounds(785, 339, 119, 71);
+		label_31.setBounds(785, 117, 119, 71);
 		frame.getContentPane().add(label_31);
 		
 		JLabel label_32 = new JLabel("");
-		label_32.setBounds(785, 412, 119, 71);
+		label_32.setBounds(785, 191, 119, 71);
 		frame.getContentPane().add(label_32);
 		
 		JLabel label_33 = new JLabel("");
-		label_33.setBounds(785, 486, 119, 71);
+		label_33.setBounds(785, 265, 119, 71);
 		frame.getContentPane().add(label_33);
 		
 		JLabel label_34 = new JLabel("");
-		label_34.setBounds(785, 560, 119, 71);
+		label_34.setBounds(785, 339, 119, 71);
 		frame.getContentPane().add(label_34);
 		
 		JLabel label_35 = new JLabel("");
-		label_35.setBounds(785, 634, 119, 71);
+		label_35.setBounds(785, 412, 119, 71);
 		frame.getContentPane().add(label_35);
 		
 		JLabel label_36 = new JLabel("");
-		label_36.setBounds(785, 707, 119, 71);
+		label_36.setBounds(785, 486, 119, 71);
 		frame.getContentPane().add(label_36);
+		
+		JLabel label_37 = new JLabel("");
+		label_37.setBounds(785, 560, 119, 71);
+		frame.getContentPane().add(label_37);
+		
+		JLabel label_38 = new JLabel("");
+		label_38.setBounds(785, 634, 119, 71);
+		frame.getContentPane().add(label_38);
+		
+		JLabel label_39 = new JLabel("");
+		label_39.setBounds(785, 707, 119, 71);
+		frame.getContentPane().add(label_39);
 		
 		JLabel p0 = new JLabel("");
 		p0.setOpaque(true);
