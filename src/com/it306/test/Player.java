@@ -1,7 +1,7 @@
 package com.it306.test;
 
 //import com.it306.test.UI.*;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * This is the class that contains the information of the player
@@ -14,12 +14,12 @@ public class Player {
 	
 	private String name;
 	private int index;
-	private String colour;
-	private int money = 1500;							//The starting money each player has
+	private int colour;
+	private int money = 0;
 	private int position = 0;
 	private boolean inJail = false;
 	private boolean isOut = false;
-//	private ArrayList<Integer> properties = new ArrayList<Integer>();
+	private ArrayList<Property> properties = new ArrayList<Property>();
 	
 	public Player(){
 		
@@ -35,7 +35,7 @@ public class Player {
 	/**
 	 * @return the colour
 	 */
-	public String getColour() {
+	public int getColour() {
 		return colour;
 	}
 
@@ -56,7 +56,7 @@ public class Player {
 	/**
 	 * @param colour the colour to set
 	 */
-	public void setColour(String colour) {
+	public void setColour(int colour) {
 		this.colour = colour;
 	}
 
@@ -86,11 +86,13 @@ public class Player {
 	 * @param money : the money to be subtracted
 	 * This method subtracts the money from the player
 	 */
-	public void subMoney(int sub) {
+	public int subMoney(int sub) {
 		if (sub < this.money) {
-			trade();
+			//TODO Add a GUI or something here.
+			return 1;
 		}
 		this.money = this.money - sub;
+		return 0;
 	}
 	
 
@@ -125,7 +127,7 @@ public class Player {
 	/**
 	 * @return the isOut
 	 */
-	public boolean isOut() {
+	public boolean getIsOut() {
 		return isOut;
 	}
 
@@ -135,9 +137,19 @@ public class Player {
 	public void setOut(boolean isOut) {
 		this.isOut = isOut;
 	}
-
-	public void trade() {
-		//TODO Integrate the trade with the UI
+	
+	public int addProperty(Property a) {
+		for (Property x : properties) {
+			if (x == a) {
+				return -2;
+			}
+		}
+		try {
+			properties.add(a);
+		} catch (Exception e) {
+			return -1;
+		}
+		return 0;
 	}
 	
 }

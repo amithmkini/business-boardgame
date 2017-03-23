@@ -5,22 +5,23 @@ package com.it306.test.UI;
  * @author Amith Kini
  */
 
+import com.it306.test.*;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
-//import javax.swing.LookAndFeel;
-//import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Start {
 
@@ -31,7 +32,12 @@ public class Start {
 	private JTextField textField_3;
 	private JLabel lblPlayer_2;
 	private JLabel lblPlayer_3;
+	private JButton btnStart;
+	private JButton btnRules;
+	private JButton btnAbout;
 	private static Integer[] plrs = {2,3,4};
+	private int choice = 2;
+	private ArrayList<String> players = new ArrayList<String>();
 
 	/**
 	 * Launch the application.
@@ -42,38 +48,6 @@ public class Start {
 				try {
 					Start window = new Start();
 					window.frame.setVisible(true);
-					//The main code goes here
-					JComboBox<Integer> comboBox = new JComboBox<Integer>(plrs);
-					comboBox.setBounds(226, 145, 65, 22);
-					window.frame.getContentPane().add(comboBox);
-					
-					comboBox.addItemListener(new ItemListener(){
-
-						@Override
-						public void itemStateChanged(ItemEvent arg0) {
-							if ((int)arg0.getItem() == 2) {
-								window.lblPlayer_2.setVisible(false);
-								window.textField_2.setVisible(false);
-								window.lblPlayer_3.setVisible(false);
-								window.textField_3.setVisible(false);
-							}
-							else if ((int)arg0.getItem() == 3) {
-								window.lblPlayer_2.setVisible(true);
-								window.textField_2.setVisible(true);
-								window.lblPlayer_3.setVisible(false);
-								window.textField_3.setVisible(false);
-							}
-							else if ((int)arg0.getItem() > 3) {
-								window.lblPlayer_2.setVisible(true);
-								window.textField_2.setVisible(true);
-								window.lblPlayer_3.setVisible(true);
-								window.textField_3.setVisible(true);
-							}
-						}
-						
-					});
-					
-					//Ends here
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -133,15 +107,36 @@ public class Start {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnStart = new JButton("Start!");
+		btnStart = new JButton("Start!");
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String plr0 = textField.getText();
+				String plr1 = textField_1.getText();
+				players.add(plr0);
+				players.add(plr1);
+				if (choice == 3) {
+					String plr2 = textField_2.getText();
+					players.add(plr2);
+				}
+				else if (choice == 4) {
+					String plr3 = textField_3.getText();
+					players.add(plr3);
+				}
+				//Everything starts from here.
+				frame.dispose();
+				GameMaster gameMaster = new GameMaster();
+				gameMaster.setPlayers(players);
+				//And it ends here. Add start game method before ending this method.
+			}
+		});
 		btnStart.setBounds(370, 434, 108, 73);
 		frame.getContentPane().add(btnStart);
 		
-		JButton btnRules = new JButton("Rules");
+		btnRules = new JButton("Rules");
 		btnRules.setBounds(42, 458, 97, 25);
 		frame.getContentPane().add(btnRules);
 		
-		JButton btnAbout = new JButton("About");
+		btnAbout = new JButton("About");
 		btnAbout.setBounds(174, 458, 97, 25);
 		frame.getContentPane().add(btnAbout);
 		
@@ -171,6 +166,37 @@ public class Start {
 		textField_3.setColumns(10);
 		textField_3.setBounds(370, 377, 130, 22);
 		frame.getContentPane().add(textField_3);
+//		JComboBox comboBox = new JComboBox(plrs);
+		JComboBox<Integer> comboBox = new JComboBox<Integer>(plrs);
+		comboBox.setBounds(226, 145, 65, 22);
+		frame.getContentPane().add(comboBox);
+		
+		comboBox.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				choice = (int) arg0.getItem();
+				if (choice == 2) {
+					lblPlayer_2.setVisible(false);
+					textField_2.setVisible(false);
+					lblPlayer_3.setVisible(false);
+					textField_3.setVisible(false);
+				}
+				else if (choice == 3) {
+					lblPlayer_2.setVisible(true);
+					textField_2.setVisible(true);
+					lblPlayer_3.setVisible(false);
+					textField_3.setVisible(false);
+				}
+				else if (choice == 4) {
+					lblPlayer_2.setVisible(true);
+					textField_2.setVisible(true);
+					lblPlayer_3.setVisible(true);
+					textField_3.setVisible(true);
+				}
+			}
+			
+		});
 		
 		JLabel label = new JLabel("");
 		label.setBounds(54, 230, 237, 137);
