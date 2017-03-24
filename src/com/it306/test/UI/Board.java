@@ -7,9 +7,8 @@ package com.it306.test.UI;
  * @author Amith Kini
  */
 
-import java.awt.EventQueue;
 import java.awt.Toolkit;
-
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,35 +17,20 @@ import java.awt.Color;
 
 public class Board {
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Board window = new Board();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public JFrame frame;
+//	private ArrayList<JLabel> cells = new ArrayList<JLabel>();
 
 	/**
 	 * Create the application.
 	 */
-	public Board() {
-		initialize();
+	public Board(ArrayList<String> plrs) {
+		initialize(plrs);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(ArrayList<String> plrs) {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 910, 930);
@@ -216,7 +200,7 @@ public class Board {
 		
 		JLabel p0 = new JLabel("");
 		p0.setOpaque(true);
-		p0.setBackground(new Color(255, 0, 0));
+		p0.setBackground(Color.RED);
 		p0.setBounds(817, 829, 20, 20);
 		frame.getContentPane().add(p0);
 		
@@ -231,12 +215,19 @@ public class Board {
 		p2.setBackground(Color.GREEN);
 		p2.setBounds(849, 829, 20, 20);
 		frame.getContentPane().add(p2);
+		if (plrs.size() < 3) {
+			p2.setVisible(false);
+		}
 		
 		JLabel p3 = new JLabel("");
 		p3.setBackground(Color.YELLOW);
 		p3.setOpaque(true);
 		p3.setBounds(849, 862, 20, 20);
 		frame.getContentPane().add(p3);
+		if (plrs.size() < 4) {
+			p3.setVisible(false);
+		}
+		
 		JLabel bgLbl = new JLabel();
 		bgLbl.setBounds(0, 0, 904, 895);
 		bgLbl.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Board.class.getResource("/media/background.jpg"))));

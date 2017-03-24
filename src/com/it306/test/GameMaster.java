@@ -8,18 +8,25 @@ package com.it306.test;
  * @author Amith Kini
  */
 
+import com.it306.test.UI.*;
+
 import java.util.ArrayList;
 
 
 public class GameMaster {
-//	private Dice[] dice;
 	private int noOfPlayers;
-//	private Board gameBoard;
+	private Board gameBoard;
 	private int initMoney = 1500;
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
 	
-	public GameMaster() {
+	public GameMaster(ArrayList<String> plrs) {
+		try {
+			gameBoard = new Board(plrs);
+			gameBoard.frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setPlayers(ArrayList<String> plrs) {
@@ -64,6 +71,10 @@ public class GameMaster {
 		else {
 			System.out.println("No players yet!");
 		}
+	}
+	
+	public void rollDice() {
+		
 	}
 	
 }
