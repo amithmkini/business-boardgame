@@ -3,6 +3,8 @@ package com.it306.test;
 //import com.it306.test.UI.*;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 /**
  * This is the class that contains the information of the player
  * @author Amith Kini
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 
 public class Player {
 	
+	public JLabel lbl;
 	private String name;
 	private int index;
 	private int colour;
@@ -21,8 +24,8 @@ public class Player {
 	private boolean isOut = false;
 	private ArrayList<Property> properties = new ArrayList<Property>();
 	
-	public Player(){
-		
+	public Player(JLabel x){
+		this.lbl = x;
 	}
 
 	/**
@@ -150,6 +153,22 @@ public class Player {
 			return -1;
 		}
 		return 0;
+	}
+	
+	public ArrayList<Integer> rollDice() {
+		Dice die = new Dice();
+		int a = die.roll();
+		int b = die.roll();
+		int value = a + b;
+		ArrayList<Integer> dice = new ArrayList<Integer>();
+		dice.add(value);
+		if (a == b) {
+			dice.add(1);
+		}
+		else {
+			dice.add(0);
+		}
+		return dice;
 	}
 	
 }

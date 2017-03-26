@@ -1,7 +1,14 @@
 package com.it306.test.UI;
 
-import java.awt.EventQueue;
+/**
+ * The dialog box which shows the options for the players during
+ * their turn. If the player is in jail, they can pay the bail.
+ * 
+ * @author Amith Kini
+ */
 
+
+import com.it306.test.*;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,34 +17,36 @@ import java.awt.Font;
 public class PlayerChoices {
 
 	private JFrame frame;
+//	private int value;
+//	public boolean doubles = false;
+//	private boolean turnStarted = false;
 
+	JButton btnPlay;
+	JButton btnEndTurn;
+	JButton btnTrade;
+	JButton btnPayBail;
+	JButton btnPickCard;
+	JButton btnBuyProperty;
+	
 	/**
-	 * Launch the application.
+	 * The main loop of the application. The loop ends when the "End Turn"
+	 * button is pressed.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlayerChoices window = new PlayerChoices();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
+	
+	
 	/**
 	 * Create the application.
 	 */
-	public PlayerChoices() {
-		initialize();
+	public PlayerChoices(GameMaster gameMaster) {
+		Player plr = gameMaster.getCurrentPlayer();
+		initialize(plr);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Player plr) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 357, 341);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,9 +86,7 @@ public class PlayerChoices {
 		lblPlayer.setBounds(31, 13, 57, 26);
 		frame.getContentPane().add(lblPlayer);
 		
-		// This label should display the name of the player in control.
-		
-		JLabel label = new JLabel("");
+		JLabel label = new JLabel(plr.getName());
 		label.setBounds(116, 13, 166, 26);
 		frame.getContentPane().add(label);
 	}

@@ -12,6 +12,8 @@ import com.it306.test.UI.*;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 
 public class GameMaster {
 	private int noOfPlayers;
@@ -19,6 +21,7 @@ public class GameMaster {
 	private int initMoney = 1500;
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
+	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
 	
 	public GameMaster(ArrayList<String> plrs) {
 		try {
@@ -31,8 +34,13 @@ public class GameMaster {
 	
 	public void setPlayers(ArrayList<String> plrs) {
 		int i = 0;
+		pLabels.add(gameBoard.p0);
+		pLabels.add(gameBoard.p1);
+		pLabels.add(gameBoard.p2);
+		pLabels.add(gameBoard.p3);
 		for (String name : plrs) {
-			Player x = new Player();
+			JLabel lbl = pLabels.get(i);
+			Player x = new Player(lbl);
 			x.setName(name);
 			x.setIndex(i);
 			playerList.add(x);
@@ -43,11 +51,12 @@ public class GameMaster {
 	public void switchTurn() {
 		turn = (turn + 1) % noOfPlayers;
 		Player currPlr = getCurrentPlayer();
-		if (currPlr.getIsOut() || currPlr.isInJail()) {
-			//This is just a placeholder. Do something here.
+		if (currPlr.getIsOut()) {
+			switchTurn();
 		}
 		else {
-			
+			//This is just a placeholder. Do something here.
+			play();
 		}
 	}
 	
@@ -73,8 +82,14 @@ public class GameMaster {
 		}
 	}
 	
-	public void rollDice() {
+	public void start() {
 		
 	}
+	
+	public void play(){
+		
+	}
+	
+	
 	
 }
