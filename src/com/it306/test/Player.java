@@ -23,6 +23,7 @@ public class Player {
 	private boolean inJail = false;
 	private boolean isOut = false;
 	private ArrayList<Property> properties = new ArrayList<Property>();
+	public int lastRollValue = 0;
 	
 	public Player(JLabel x){
 		this.lbl = x;
@@ -162,6 +163,7 @@ public class Player {
 		int value = a + b;
 		ArrayList<Integer> dice = new ArrayList<Integer>();
 		dice.add(value);
+		lastRollValue = value;
 		if (a == b) {
 			dice.add(1);
 		}

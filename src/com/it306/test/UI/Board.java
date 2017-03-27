@@ -157,13 +157,13 @@ public class Board {
 			pLabel.setBounds(x_new-20, y_new-20, 20, 20);
 		}
 		else if (index == 1) {
-			pLabel.setBounds(x, y, 20, 20);
+			pLabel.setBounds(x_new-20, y_new+20, 20, 20);
 		}
 		else if (index == 2) {
-			pLabel.setBounds(x, y, 20, 20);
+			pLabel.setBounds(x_new+20, y_new-20, 20, 20);
 		}
 		else {
-			pLabel.setBounds(x, y, 20, 20);
+			pLabel.setBounds(x_new+20, y_new+20, 20, 20);
 		}
 	}
 	

@@ -12,35 +12,34 @@ import com.it306.test.*;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class PlayerChoices {
 
 	private JFrame frame;
-//	private int value;
-//	public boolean doubles = false;
-//	private boolean turnStarted = false;
-
-	JButton btnPlay;
-	JButton btnEndTurn;
-	JButton btnTrade;
-	JButton btnPayBail;
-	JButton btnPickCard;
-	JButton btnBuyProperty;
-	
-	/**
-	 * The main loop of the application. The loop ends when the "End Turn"
-	 * button is pressed.
-	 */
-	
-	
+	private JButton btnPlay;
+	private JButton btnEndTurn;
+	private JButton btnTrade;
+	private JButton btnPayBail;
+	private JButton btnPickCard;
+	private JButton btnBuyProperty;
+	private GameMaster gameMaster;
+	private boolean turnStarted = false;
 	
 	/**
 	 * Create the application.
 	 */
 	public PlayerChoices(GameMaster gameMaster) {
-		Player plr = gameMaster.getCurrentPlayer();
+		
+		this.gameMaster = gameMaster;
+		Player plr = this.gameMaster.getCurrentPlayer();
 		initialize(plr);
+		btnEnablers(plr);
 	}
 
 	/**
@@ -53,6 +52,31 @@ public class PlayerChoices {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnPlay = new JButton("Roll the dice");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Integer> value = plr.rollDice();
+				int pos = plr.getPosition();
+				if (plr.isInJail()) {
+					if (value.get(1) == 1) {
+						JOptionPane.showMessageDialog(null, "You are out of Jail!",
+								"Message", JOptionPane.INFORMATION_MESSAGE);
+						int new_pos = pos + value.get(0);
+						gameMaster.movePlayer(new_pos);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
+								"Message", JOptionPane.INFORMATION_MESSAGE);
+						endTurn();
+					}
+				}
+				else {
+					int new_pos = pos + value.get(0);
+					gameMaster.movePlayer(new_pos);
+					btnPlay.setEnabled(false);
+					
+				}
+			}
+		});
 		btnPlay.setBounds(31, 60, 106, 55);
 		frame.getContentPane().add(btnPlay);
 		
@@ -89,5 +113,37 @@ public class PlayerChoices {
 		JLabel label = new JLabel(plr.getName());
 		label.setBounds(116, 13, 166, 26);
 		frame.getContentPane().add(label);
+	}
+	
+	private void endTurn() {
+		btnEndTurn.setEnabled(true);
+		btnTrade.setEnabled(false);
+		btnBuyProperty.setEnabled(false);
+		btnPickCard.setEnabled(false);
+		btnPlay.setEnabled(false);
+		btnPayBail.setEnabled(false);
+	}
+	
+	private void btnEnablers(Player plr) {
+		if (!turnStarted) {
+			btnPlay.setEnabled(true);
+			btnEndTurn.setEnabled(false);
+			btnTrade.setEnabled(false);
+			btnPayBail.setEnabled(false);
+			btnPickCard.setEnabled(false);
+			btnBuyProperty.setEnabled(false);
+		}
+		else {
+			btnPlay.setEnabled(false);
+			btnEndTurn.setEnabled(true);
+			if (!plr.isInJail()) {
+				btnTrade.setEnabled(true);
+				btnPickCard.setEnabled(false);
+				btnBuyProperty.setEnabled(false);
+			}
+			else {
+				btnPayBail.setEnabled(false);
+			}
+		}
 	}
 }

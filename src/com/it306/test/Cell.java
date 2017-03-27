@@ -15,6 +15,8 @@ public abstract class Cell {
 	private int rent = 0;
 	private String owner = "Bank";		//The default value for all property at the start
 	private String colourGroup;
+	private boolean chance = false;
+	private boolean community_chest = false;
 	/**
 	 * @return the position
 	 */
@@ -86,5 +88,29 @@ public abstract class Cell {
 	 */
 	public void setColourGroup(String colourGroup) {
 		this.colourGroup = colourGroup;
+	}
+	/**
+	 * @return the chance
+	 */
+	public boolean isChance() {
+		return chance;
+	}
+	/**
+	 * @param chance the chance to set
+	 */
+	public void setChance(boolean chance) {
+		this.chance = chance;
+	}
+	/**
+	 * @return the community_chest
+	 */
+	public boolean isCommunity_chest() {
+		return community_chest;
+	}
+	/**
+	 * @param community_chest the community_chest to set
+	 */
+	public void setCommunity_chest(boolean community_chest) {
+		this.community_chest = community_chest;
 	}
 }

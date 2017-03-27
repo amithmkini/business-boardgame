@@ -9,9 +9,7 @@ package com.it306.test;
  */
 
 import com.it306.test.UI.*;
-
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
 
 
@@ -80,6 +78,12 @@ public class GameMaster {
 		else {
 			System.out.println("No players yet!");
 		}
+	}
+	
+	public void movePlayer(int pos) {
+		Player plr = getCurrentPlayer();
+		plr.setPosition(pos);
+		gameBoard.setPlayerPos(pos, plr);
 	}
 	
 	public void start() {
