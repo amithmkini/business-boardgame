@@ -14,102 +14,70 @@ public abstract class Cell {
 	private int value = 0;
 	private int rent = 0;
 	private String owner = "Bank";		//The default value for all property at the start
+	private boolean buyable = true;		//Change this for chance block and community chest blocks.
 	private String colourGroup;
 	private boolean chance = false;
 	private boolean community_chest = false;
-	/**
-	 * @return the position
-	 */
+
 	public int getPosition() {
 		return position;
 	}
-	/**
-	 * @param position the position to set
-	 */
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	/**
-	 * @return the name
-	 */
+	
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param name the name to set
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * @return the value
-	 */
+	
 	public int getValue() {
 		return value;
 	}
-	/**
-	 * @param value the value to set
-	 */
 	public void setValue(int value) {
 		this.value = value;
 	}
-	/**
-	 * @return the rent
-	 */
+	
 	public int getRent() {
 		return rent;
 	}
-	/**
-	 * @param rent the rent to set
-	 */
 	public void setRent(int rent) {
 		this.rent = rent;
 	}
-	/**
-	 * @return the owner
-	 */
+	
 	public String getOwner() {
 		return owner;
 	}
-	/**
-	 * @param owner the owner to set
-	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	/**
-	 * @return the colourGroup
-	 */
+	
+	public boolean isBuyable() {
+		return buyable;
+	}
+	public void setBuyable(boolean buyable) {
+		this.buyable = buyable;
+	}
+	
 	public String getColourGroup() {
 		return colourGroup;
 	}
-	/**
-	 * @param colourGroup the colourGroup to set
-	 */
 	public void setColourGroup(String colourGroup) {
 		this.colourGroup = colourGroup;
 	}
-	/**
-	 * @return the chance
-	 */
+	
 	public boolean isChance() {
 		return chance;
 	}
-	/**
-	 * @param chance the chance to set
-	 */
 	public void setChance(boolean chance) {
 		this.chance = chance;
 	}
-	/**
-	 * @return the community_chest
-	 */
+
 	public boolean isCommunity_chest() {
 		return community_chest;
 	}
-	/**
-	 * @param community_chest the community_chest to set
-	 */
 	public void setCommunity_chest(boolean community_chest) {
 		this.community_chest = community_chest;
 	}

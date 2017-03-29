@@ -136,11 +136,18 @@ public class PlayerChoices {
 		else {
 			btnPlay.setEnabled(false);
 			btnEndTurn.setEnabled(true);
-			if (!plr.isInJail()) {
-				btnTrade.setEnabled(true);
+			btnTrade.setEnabled(true);
+			btnPickCard.setEnabled(true);
+			btnBuyProperty.setEnabled(true);
+			if (plr.isInJail()) {
+				btnPayBail.setEnabled(true);
 				btnPickCard.setEnabled(false);
 				btnBuyProperty.setEnabled(false);
 			}
+			
+			//Add a condition to check if the player is on a chance block or 
+			//community chest block. Or any other thing which is not buyable.
+			
 			else {
 				btnPayBail.setEnabled(false);
 			}

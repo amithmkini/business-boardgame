@@ -142,18 +142,19 @@ public class Player {
 		this.isOut = isOut;
 	}
 	
-	public int addProperty(Property a) {
-		for (Property x : properties) {
-			if (x == a) {
-				return -2;
-			}
+	public void addProperty(Property a) {
+		if (properties.contains(a)) {
+			//Display a message to show that he already has this property.
 		}
-		try {
-			properties.add(a);
-		} catch (Exception e) {
-			return -1;
+		else if (a.getValue() > money) {
+			//Display a message to show that he has insufficient funds.
 		}
-		return 0;
+		else if (!a.getOwner().equals("Bank")){
+			Player other = a.getPowner();
+			String name = other.getName();
+			System.out.println(name);
+			//Display the name of the player it belongs to.
+		}
 	}
 	
 	public ArrayList<Integer> rollDice() {
