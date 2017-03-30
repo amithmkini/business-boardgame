@@ -4,20 +4,17 @@ public class Property extends Cell{
 	
 	private Player powner;
 	
-	public Property(){
-		
+	public Property(String name, int pos, int value, String colourGroup){
+		setName(name);
+		setPosition(pos);
+		setValue(value);
+		setColourGroup(colourGroup);
 	}
 
-	/**
-	 * @return the owner, as the Player class
-	 */
 	public Player getPowner() {
 		return powner;
 	}
 
-	/**
-	 * @param powner the owner to set as the Player class
-	 */
 	public void setPowner(Player powner) {
 		this.powner = powner;
 	}

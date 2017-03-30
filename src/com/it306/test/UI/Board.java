@@ -20,6 +20,7 @@ public class Board {
 
 	public JFrame frame;
 	private ArrayList<JLabel> cells = new ArrayList<JLabel>();
+	public ArrayList<Object> cellList = new ArrayList<Object>();
 	public JLabel p0;
 	public JLabel p1;
 	public JLabel p2;
@@ -43,10 +44,12 @@ public class Board {
 		JPanel panel = (JPanel)frame.getContentPane();
 		frame.getContentPane().setLayout(null);
 		
+		// The "GO" label
 		JLabel label = new JLabel("");
 		label.setBounds(785, 779, 119, 116);
 		frame.getContentPane().add(label);
 		cells.add(label);
+		
 		
 		int arg0 = 709;
 		

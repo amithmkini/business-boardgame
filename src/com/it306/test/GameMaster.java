@@ -94,6 +94,9 @@ public class GameMaster {
 		
 	}
 	
+	public void getCellAtPos(int pos) {
+		
+	}
 	
 	
 }

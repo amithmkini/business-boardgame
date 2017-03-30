@@ -30,6 +30,7 @@ public class PlayerChoices {
 	private JButton btnBuyProperty;
 	private GameMaster gameMaster;
 	private boolean turnStarted = false;
+//	private boolean pickedCard = false;
 	
 	/**
 	 * Create the application.
@@ -144,7 +145,8 @@ public class PlayerChoices {
 				btnPickCard.setEnabled(false);
 				btnBuyProperty.setEnabled(false);
 			}
-			
+			// A condition to check if the property is buyable
+			//else if (){}
 			//Add a condition to check if the player is on a chance block or 
 			//community chest block. Or any other thing which is not buyable.
 			
