@@ -55,12 +55,16 @@ public class PlayerChoices {
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArrayList<Integer> value = plr.rollDice();
+				String msg = "You rolled ";
+				msg = msg + String.valueOf(value.get(0)) + " and " + String.valueOf(value.get(1));
+				JOptionPane.showMessageDialog(null, msg,
+						"Message", JOptionPane.INFORMATION_MESSAGE);				
 				int pos = plr.getPosition();
 				if (plr.isInJail()) {
-					if (value.get(1) == 1) {
+					if (value.get(3) == 1) {
 						JOptionPane.showMessageDialog(null, "You are out of Jail!",
 								"Message", JOptionPane.INFORMATION_MESSAGE);
-						int new_pos = pos + value.get(0);
+						int new_pos = pos + value.get(2);
 						gameMaster.movePlayer(new_pos);
 					}
 					else {
@@ -70,7 +74,7 @@ public class PlayerChoices {
 					}
 				}
 				else {
-					int new_pos = pos + value.get(0);
+					int new_pos = pos + value.get(2);
 					gameMaster.movePlayer(new_pos);
 					btnPlay.setEnabled(false);
 					
