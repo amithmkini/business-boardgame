@@ -19,14 +19,30 @@ public class GameMaster {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
 	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
-	public ArrayList<Object> cellList;
+	public ArrayList<Object> cellList = new ArrayList<Object>();
 	
 	public GameMaster(ArrayList<String> plrs) {
 		try {
 			gameBoard = new Board(plrs);
 			gameBoard.frame.setVisible(true);
 			setPlayers(plrs);
-			cellList = new CellBuilder().read();
+			{
+				GOCell x = new GOCell();
+				cellList.add(x);
+				Property y = new Property("XYZ",1,125,"G");
+				cellList.add(y);
+				CommunityChestCell z = new CommunityChestCell(2);
+				cellList.add(z);
+				Property y1 = new Property("XYZ",3,125,"G");
+				cellList.add(y1);
+				IncomeTaxCell it = new IncomeTaxCell(4, 50);
+				cellList.add(it);
+				Property y2 = new Property("XYZ",5,125,"G");
+				cellList.add(y2);
+				
+			}
+//			cellList = new CellBuilder().read();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -22,7 +22,7 @@ public class Board {
 
 	public JFrame frame;
 	private ArrayList<JLabel> cells = new ArrayList<JLabel>();
-	public ArrayList<Object> cellList/* = new ArrayList<Object>()*/;
+	public ArrayList<Object> cellList = new ArrayList<Object>();
 	public JLabel p0;
 	public JLabel p1;
 	public JLabel p2;
@@ -32,8 +32,8 @@ public class Board {
 	 * Create the application.
 	 */
 	public Board(ArrayList<String> plrs) {
-//		GOCell x = new GOCell();
-//		cellList.add(x);
+		GOCell x = new GOCell();
+		cellList.add(x);
 		initialize(plrs);
 	}
 

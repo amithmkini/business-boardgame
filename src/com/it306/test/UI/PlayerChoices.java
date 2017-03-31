@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -51,6 +50,7 @@ public class PlayerChoices {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
+		
 		JButton btnPlay = new JButton("Roll the dice");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -70,8 +70,8 @@ public class PlayerChoices {
 					else {
 						JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
 								"Message", JOptionPane.INFORMATION_MESSAGE);
-						endTurn();
 					}
+					frame.dispose();
 				}
 				else {
 					int new_pos = pos + value.get(2);
@@ -79,12 +79,18 @@ public class PlayerChoices {
 					btnPlay.setEnabled(false);
 					turnStarted = true;
 				}
+				btnEnablers(plr);
 			}
 		});
 		btnPlay.setBounds(31, 60, 106, 55);
 		frame.getContentPane().add(btnPlay);
 		
 		JButton btnEndTurn = new JButton("End turn");
+		btnEndTurn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
 		btnEndTurn.setEnabled(false);
 		btnEndTurn.setBounds(201, 60, 106, 55);
 		frame.getContentPane().add(btnEndTurn);
@@ -119,15 +125,6 @@ public class PlayerChoices {
 		frame.getContentPane().add(label);
 	}
 	
-	private void endTurn() {
-		btnEndTurn.setEnabled(true);
-		btnTrade.setEnabled(false);
-		btnBuyProperty.setEnabled(false);
-		btnPickCard.setEnabled(false);
-		btnPlay.setEnabled(false);
-		btnPayBail.setEnabled(false);
-	}
-	
 	private void btnEnablers(Player plr) {
 		if (!turnStarted) {
 			btnPlay.setEnabled(true);
@@ -142,18 +139,23 @@ public class PlayerChoices {
 			btnPickCard.setEnabled(false);
 			btnBuyProperty.setEnabled(false);
 		}
-		// A condition to check if the property is buyable
-		//else if (){}
-		//Add a condition to check if the player is on a chance block or 
-		//community chest block. Or any other thing which is not buyable.
 
 		else {
 			btnPlay.setEnabled(false);
 			btnEndTurn.setEnabled(true);
 			btnTrade.setEnabled(true);
-			
-			btnPickCard.setEnabled(true);
-			btnBuyProperty.setEnabled(true);		
+			Cell x = (Cell) gameMaster.cellList.get(plr.getPosition());
+			if (x.isBuyable()) {
+				btnBuyProperty.setEnabled(true);
+			}
+			else {
+				btnBuyProperty.setEnabled(false);
+			}
+			if (x.isChance() || x.isCommunity_chest()) {
+				btnPickCard.setEnabled(true);
+			}
+			btnPayBail.setEnabled(false);
 		}
 	}
+	
 }
