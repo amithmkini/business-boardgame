@@ -1,16 +1,14 @@
 package com.it306.test;
 
-//import com.it306.test.UI.*;
-import java.util.ArrayList;
-
-import javax.swing.JLabel;
-
 /**
  * This is the class that contains the information of the player
  * @author Amith Kini
  *
  */
 
+//import com.it306.test.UI.*;
+import java.util.ArrayList;
+import javax.swing.JLabel;
 
 public class Player {
 	
@@ -163,6 +161,8 @@ public class Player {
 		int b = die.roll();
 		int value = a + b;
 		ArrayList<Integer> dice = new ArrayList<Integer>();
+		dice.add(a);
+		dice.add(b);
 		dice.add(value);
 		lastRollValue = value;
 		if (a == b) {

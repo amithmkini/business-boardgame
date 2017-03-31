@@ -9,6 +9,8 @@ package com.it306.test.UI;
 
 import com.it306.test.*;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,7 +22,7 @@ public class Board {
 
 	public JFrame frame;
 	private ArrayList<JLabel> cells = new ArrayList<JLabel>();
-	public ArrayList<Object> cellList = new ArrayList<Object>();
+	public ArrayList<Object> cellList/* = new ArrayList<Object>()*/;
 	public JLabel p0;
 	public JLabel p1;
 	public JLabel p2;
@@ -30,6 +32,8 @@ public class Board {
 	 * Create the application.
 	 */
 	public Board(ArrayList<String> plrs) {
+//		GOCell x = new GOCell();
+//		cellList.add(x);
 		initialize(plrs);
 	}
 
@@ -40,7 +44,7 @@ public class Board {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 910, 930);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JPanel panel = (JPanel)frame.getContentPane();
 		frame.getContentPane().setLayout(null);
 		
@@ -49,7 +53,13 @@ public class Board {
 		label.setBounds(785, 779, 119, 116);
 		frame.getContentPane().add(label);
 		cells.add(label);
-		
+		label.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GOCell x = (GOCell) cellList.get(0);
+				@SuppressWarnings("unused")
+				PropertyInfo disp = new PropertyInfo(x);
+			}
+		});
 		
 		int arg0 = 709;
 		
@@ -60,7 +70,7 @@ public class Board {
 			cells.add(x);
 			arg0 = arg0 - 74;
 		}
-		
+		// The "Just visiting" label
 		JLabel label_10 = new JLabel("");
 		label_10.setBounds(0, 779, 119, 116);
 		frame.getContentPane().add(label_10);
@@ -76,6 +86,8 @@ public class Board {
 			arg1 = arg1 - 74;
 		}
 		
+		
+		// The "Free parking" label
 		JLabel label_20 = new JLabel("");
 		label_20.setBounds(0, 0, 119, 116);
 		frame.getContentPane().add(label_20);
@@ -91,6 +103,7 @@ public class Board {
 			arg2 = arg2 + 74;
 		}
 		
+		// The "Jail" label
 		JLabel label_30 = new JLabel("");
 		label_30.setBounds(785, 0, 119, 116);
 		frame.getContentPane().add(label_30);
@@ -106,18 +119,21 @@ public class Board {
 			arg3 = arg3 + 74;
 		}
 		
+		// Player 1
 		p0 = new JLabel("1");
 		p0.setOpaque(true);
 		p0.setBackground(Color.RED);
 		p0.setBounds(817, 829, 20, 20);
 		frame.getContentPane().add(p0);
 		
+		// Player 2
 		p1 = new JLabel("2");
 		p1.setBackground(Color.BLUE);
 		p1.setOpaque(true);
 		p1.setBounds(817, 862, 20, 20);
 		frame.getContentPane().add(p1);
 		
+		// Player 3
 		p2 = new JLabel("3");
 		p2.setOpaque(true);
 		p2.setBackground(Color.GREEN);
@@ -127,6 +143,7 @@ public class Board {
 			p2.setVisible(false);
 		}
 		
+		// Player 4
 		p3 = new JLabel("4");
 		p3.setBackground(Color.YELLOW);
 		p3.setOpaque(true);

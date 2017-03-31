@@ -8,16 +8,14 @@ package com.it306.test;
  */
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class CellBuilder {
 	
 	String filename = "class.txt";
+	public ArrayList<Object> cellList = new ArrayList<Object>();
 	
-	public void CellBulider() {
-		
-	}
-	
-	public void read() {
+	public ArrayList<Object> read() {
 		String line = null;
 		try {
 			FileReader filer = new FileReader(filename);
@@ -32,5 +30,8 @@ public class CellBuilder {
 		} catch (IOException ex) {
 			System.out.println("Error!");
 		}
+		
+		
+		return cellList;
 	}
 }

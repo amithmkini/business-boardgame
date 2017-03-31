@@ -12,7 +12,6 @@ import com.it306.test.UI.*;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 
-
 public class GameMaster {
 	private int noOfPlayers;
 	private Board gameBoard;
@@ -20,12 +19,14 @@ public class GameMaster {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
 	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
+	public ArrayList<Object> cellList;
 	
 	public GameMaster(ArrayList<String> plrs) {
 		try {
 			gameBoard = new Board(plrs);
 			gameBoard.frame.setVisible(true);
 			setPlayers(plrs);
+			cellList = new CellBuilder().read();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,8 +95,8 @@ public class GameMaster {
 		
 	}
 	
-	public void getCellAtPos(int pos) {
-		
+	public Object getCellAtPos(int pos) {
+		return cellList.get(pos);
 	}
 	
 	

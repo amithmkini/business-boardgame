@@ -29,7 +29,7 @@ public class PlayerChoices {
 	private JButton btnPickCard = new JButton();
 	private JButton btnBuyProperty = new JButton();
 	private GameMaster gameMaster;
-	private boolean turnStarted = false;
+	public boolean turnStarted = false;
 //	private boolean pickedCard = false;
 	
 	/**
@@ -48,7 +48,7 @@ public class PlayerChoices {
 	private void initialize(Player plr) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 357, 341);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		JButton btnPlay = new JButton("Roll the dice");
@@ -77,7 +77,7 @@ public class PlayerChoices {
 					int new_pos = pos + value.get(2);
 					gameMaster.movePlayer(new_pos);
 					btnPlay.setEnabled(false);
-					
+					turnStarted = true;
 				}
 			}
 		});
@@ -133,7 +133,12 @@ public class PlayerChoices {
 			btnPlay.setEnabled(true);
 			btnEndTurn.setEnabled(false);
 			btnTrade.setEnabled(false);
-			btnPayBail.setEnabled(false);
+			if (plr.isInJail()) {
+				btnPayBail.setEnabled(true);
+			}
+			else {
+				btnPayBail.setEnabled(false);
+			}
 			btnPickCard.setEnabled(false);
 			btnBuyProperty.setEnabled(false);
 		}
@@ -146,16 +151,9 @@ public class PlayerChoices {
 			btnPlay.setEnabled(false);
 			btnEndTurn.setEnabled(true);
 			btnTrade.setEnabled(true);
+			
 			btnPickCard.setEnabled(true);
-			btnBuyProperty.setEnabled(true);
-			if (plr.isInJail()) {
-				btnPayBail.setEnabled(true);
-				btnPickCard.setEnabled(false);
-				btnBuyProperty.setEnabled(false);
-			}
-			else {
-				btnPayBail.setEnabled(false);
-			}			
+			btnBuyProperty.setEnabled(true);		
 		}
 	}
 }
