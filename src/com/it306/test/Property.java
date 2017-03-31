@@ -8,6 +8,7 @@ public class Property extends Cell{
 		setName(name);
 		setPosition(pos);
 		setValue(value);
+		setRent(value/10);
 		setColourGroup(colourGroup);
 	}
 
