@@ -125,8 +125,7 @@ public class Start {
 				//Everything starts from here.
 				frame.dispose();
 				GameMaster gameMaster = new GameMaster(players);
-				gameMaster.setPlayers(players);
-				gameMaster.start();
+				gameMaster.play();
 				//And it ends here. Add start game method before ending this method.
 			}
 		});

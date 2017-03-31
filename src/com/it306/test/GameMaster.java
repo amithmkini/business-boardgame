@@ -25,6 +25,7 @@ public class GameMaster {
 		try {
 			gameBoard = new Board(plrs);
 			gameBoard.frame.setVisible(true);
+			setPlayers(plrs);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,6 +45,7 @@ public class GameMaster {
 			playerList.add(x);
 			i = i + 1;
 		}
+		noOfPlayers = playerList.size();
 	}
 	
 	public void switchTurn() {
@@ -54,7 +56,7 @@ public class GameMaster {
 		}
 		else {
 			//This is just a placeholder. Do something here.
-			play();
+			//play();
 		}
 	}
 	
@@ -86,12 +88,11 @@ public class GameMaster {
 		gameBoard.setPlayerPos(pos, plr);
 	}
 	
-	public void start() {
+	public void play() {
+		@SuppressWarnings("unused")
+		PlayerChoices dialog = new PlayerChoices(this);
 		
-	}
-	
-	public void play(){
-		
+		switchTurn();
 	}
 	
 	public void getCellAtPos(int pos) {

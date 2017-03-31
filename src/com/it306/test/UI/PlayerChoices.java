@@ -22,12 +22,12 @@ import java.awt.event.ActionEvent;
 public class PlayerChoices {
 
 	private JFrame frame;
-	private JButton btnPlay;
-	private JButton btnEndTurn;
-	private JButton btnTrade;
-	private JButton btnPayBail;
-	private JButton btnPickCard;
-	private JButton btnBuyProperty;
+	private JButton btnPlay = new JButton();
+	private JButton btnEndTurn = new JButton();
+	private JButton btnTrade = new JButton();
+	private JButton btnPayBail = new JButton();
+	private JButton btnPickCard = new JButton();
+	private JButton btnBuyProperty = new JButton();
 	private GameMaster gameMaster;
 	private boolean turnStarted = false;
 //	private boolean pickedCard = false;
@@ -36,9 +36,8 @@ public class PlayerChoices {
 	 * Create the application.
 	 */
 	public PlayerChoices(GameMaster gameMaster) {
-		
 		this.gameMaster = gameMaster;
-		Player plr = this.gameMaster.getCurrentPlayer();
+		Player plr = gameMaster.getCurrentPlayer();
 		initialize(plr);
 		btnEnablers(plr);
 	}
@@ -51,7 +50,7 @@ public class PlayerChoices {
 		frame.setBounds(100, 100, 357, 341);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+		frame.setVisible(true);
 		JButton btnPlay = new JButton("Roll the dice");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -134,6 +133,11 @@ public class PlayerChoices {
 			btnPickCard.setEnabled(false);
 			btnBuyProperty.setEnabled(false);
 		}
+		// A condition to check if the property is buyable
+		//else if (){}
+		//Add a condition to check if the player is on a chance block or 
+		//community chest block. Or any other thing which is not buyable.
+
 		else {
 			btnPlay.setEnabled(false);
 			btnEndTurn.setEnabled(true);
@@ -145,14 +149,9 @@ public class PlayerChoices {
 				btnPickCard.setEnabled(false);
 				btnBuyProperty.setEnabled(false);
 			}
-			// A condition to check if the property is buyable
-			//else if (){}
-			//Add a condition to check if the player is on a chance block or 
-			//community chest block. Or any other thing which is not buyable.
-			
 			else {
 				btnPayBail.setEnabled(false);
-			}
+			}			
 		}
 	}
 }
