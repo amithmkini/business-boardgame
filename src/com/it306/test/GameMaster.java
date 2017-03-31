@@ -92,7 +92,6 @@ public class GameMaster {
 		@SuppressWarnings("unused")
 		PlayerChoices dialog = new PlayerChoices(this);
 		
-		switchTurn();
 	}
 	
 	public void getCellAtPos(int pos) {

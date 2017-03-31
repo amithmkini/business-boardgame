@@ -1,5 +1,12 @@
 package com.it306.test;
 
+/**
+ * This class is under testing. This class is used to create the
+ * cells and assign them to their respective cells.
+ * 
+ * @author Amith Kini
+ */
+
 import java.io.*;
 
 public class CellBuilder {
