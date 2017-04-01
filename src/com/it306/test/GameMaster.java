@@ -20,12 +20,16 @@ public class GameMaster {
 	private int turn = 0;
 	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
 	public ArrayList<Object> cellList = new ArrayList<Object>();
+	public ArrayList<Card> chanceCards;
+	public ArrayList<Card> communityCards;
 	
 	public GameMaster(ArrayList<String> plrs) {
 		try {
 			gameBoard = new Board(plrs);
 			gameBoard.frame.setVisible(true);
 			setPlayers(plrs);
+			chanceCards = new ChanceBuilder().build();
+			communityCards = new CommunityBuilder().build();
 			{
 				GOCell x = new GOCell();
 				cellList.add(x);

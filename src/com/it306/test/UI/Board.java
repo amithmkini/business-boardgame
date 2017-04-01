@@ -32,8 +32,6 @@ public class Board {
 	 * Create the application.
 	 */
 	public Board(ArrayList<String> plrs) {
-		GOCell x = new GOCell();
-		cellList.add(x);
 		initialize(plrs);
 	}
 
