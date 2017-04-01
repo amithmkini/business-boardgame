@@ -110,8 +110,10 @@ public class GameMaster {
 	}
 	
 	public void play() {
-		@SuppressWarnings("unused")
+		Player plr = getCurrentPlayer();
 		PlayerChoices dialog = new PlayerChoices(this);
+		dialog.btnEnablers(plr);
+		dialog.initialize(plr);
 		
 	}
 	

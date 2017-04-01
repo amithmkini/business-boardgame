@@ -21,12 +21,12 @@ import java.awt.event.ActionEvent;
 public class PlayerChoices {
 
 	private JFrame frame;
-	private JButton btnPlay = new JButton();
-	private JButton btnEndTurn = new JButton();
-	private JButton btnTrade = new JButton();
-	private JButton btnPayBail = new JButton();
-	private JButton btnPickCard = new JButton();
-	private JButton btnBuyProperty = new JButton();
+	public JButton btnPlay = new JButton("Roll the dice");
+	public JButton btnEndTurn = new JButton("End turn");
+	public JButton btnTrade = new JButton("Trade");
+	public JButton btnPayBail = new JButton("Pay Bail");
+	public JButton btnPickCard = new JButton("Pick a Card");
+	public JButton btnBuyProperty = new JButton("Buy Property");
 	private GameMaster gameMaster;
 	public boolean turnStarted = false;
 //	private boolean pickedCard = false;
@@ -36,24 +36,23 @@ public class PlayerChoices {
 	 */
 	public PlayerChoices(GameMaster gameMaster) {
 		this.gameMaster = gameMaster;
-		Player plr = gameMaster.getCurrentPlayer();
-		initialize(plr);
-		btnEnablers(plr);
+		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Player plr) {
+	public void initialize(Player plr) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 357, 341);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		JButton btnPlay = new JButton("Roll the dice");
+		// The play button
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				turnStarted = true;
 				ArrayList<Integer> value = plr.rollDice();
 				String msg = "You rolled ";
 				msg = msg + String.valueOf(value.get(0)) + " and " + String.valueOf(value.get(1));
@@ -77,7 +76,6 @@ public class PlayerChoices {
 					int new_pos = pos + value.get(2);
 					gameMaster.movePlayer(new_pos);
 					btnPlay.setEnabled(false);
-					turnStarted = true;
 				}
 				btnEnablers(plr);
 			}
@@ -85,33 +83,28 @@ public class PlayerChoices {
 		btnPlay.setBounds(31, 60, 106, 55);
 		frame.getContentPane().add(btnPlay);
 		
-		JButton btnEndTurn = new JButton("End turn");
+		// The End turn button
 		btnEndTurn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
 		});
-		btnEndTurn.setEnabled(false);
 		btnEndTurn.setBounds(201, 60, 106, 55);
 		frame.getContentPane().add(btnEndTurn);
 		
-		JButton btnTrade = new JButton("Trade");
-		btnTrade.setEnabled(false);
+		// The trade button
 		btnTrade.setBounds(31, 138, 106, 55);
 		frame.getContentPane().add(btnTrade);
 		
-		JButton btnPayBail = new JButton("Pay Bail");
-		btnPayBail.setEnabled(false);
+		// The Pay Bail button
 		btnPayBail.setBounds(201, 138, 106, 55);
 		frame.getContentPane().add(btnPayBail);
 		
-		JButton btnPickCard = new JButton("Pick a Card");
-		btnPickCard.setEnabled(false);
+		// The Pick Card
 		btnPickCard.setBounds(31, 219, 106, 55);
 		frame.getContentPane().add(btnPickCard);
 		
-		JButton btnBuyProperty = new JButton("Buy Property");
-		btnBuyProperty.setEnabled(false);
+		//The Buy Property button
 		btnBuyProperty.setBounds(201, 219, 106, 55);
 		frame.getContentPane().add(btnBuyProperty);
 		
@@ -125,8 +118,8 @@ public class PlayerChoices {
 		frame.getContentPane().add(label);
 	}
 	
-	private void btnEnablers(Player plr) {
-		if (!turnStarted) {
+	public void btnEnablers(Player plr) {
+		if (turnStarted == false) {
 			btnPlay.setEnabled(true);
 			btnEndTurn.setEnabled(false);
 			btnTrade.setEnabled(false);
@@ -144,16 +137,16 @@ public class PlayerChoices {
 			btnPlay.setEnabled(false);
 			btnEndTurn.setEnabled(true);
 			btnTrade.setEnabled(true);
-			Cell x = (Cell) gameMaster.cellList.get(plr.getPosition());
-			if (x.isBuyable()) {
-				btnBuyProperty.setEnabled(true);
-			}
-			else {
-				btnBuyProperty.setEnabled(false);
-			}
-			if (x.isChance() || x.isCommunity_chest()) {
-				btnPickCard.setEnabled(true);
-			}
+//			Cell x = (Cell) gameMaster.cellList.get(plr.getPosition());
+//			if (x.isBuyable()) {
+//				btnBuyProperty.setEnabled(true);
+//			}
+//			else {
+//				btnBuyProperty.setEnabled(false);
+//			}
+//			if (x.isChance() || x.isCommunity_chest()) {
+//				btnPickCard.setEnabled(true);
+//			}
 			btnPayBail.setEnabled(false);
 		}
 	}
