@@ -13,10 +13,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Board {
 
@@ -30,11 +34,20 @@ public class Board {
 	public JPanel panel_1;
 	public boolean turnStarted = false;
 	public GameMaster gameMaster;
+	public JLabel lblPlayer;
+	public JLabel label_1;
+	public JButton btnPlay;
+	public JButton btnBuyProperty;
+	public JButton btnTrade;
+	public JButton btnPickCard;
+	public JButton btnPayBail;
+	public JButton btnEndTurn;
 	
 	/**
 	 * Create the application.
 	 */
 	public Board(int choice) {
+		gameMaster = GameMaster.instance();
 		initialize(choice);
 	}
 
@@ -155,9 +168,80 @@ public class Board {
 			p3.setVisible(false);
 		}
 		
-		panel_1 = new JPanel();
-		panel_1.setBounds(347, 279, 222, 333);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(354, 305, 196, 270);
 		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblPlayer = new JLabel("Player:");
+		lblPlayer.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPlayer.setBounds(12, 13, 56, 16);
+		panel_1.add(lblPlayer);
+		
+		label_1 = new JLabel();
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_1.setBounds(80, 14, 104, 16);
+		panel_1.add(label_1);
+		
+		btnPlay = new JButton("Roll the dice!");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gameMaster.btnPlayClicked();
+			}
+		});
+		btnPlay.setEnabled(false);
+		btnPlay.setBounds(12, 42, 172, 25);
+		panel_1.add(btnPlay);
+		
+		btnBuyProperty = new JButton("Buy Property");
+		btnBuyProperty.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameMaster.btnBuyPropertyClicked();
+			}
+		});
+		btnBuyProperty.setEnabled(false);
+		btnBuyProperty.setBounds(12, 80, 172, 25);
+		panel_1.add(btnBuyProperty);
+		
+		btnTrade = new JButton("Trade");
+		btnTrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameMaster.btnTradeClicked();
+			}
+		});
+		btnTrade.setEnabled(true);								// The trade is the evergreen button
+		btnTrade.setBounds(12, 118, 172, 25);
+		panel_1.add(btnTrade);
+		
+		btnPickCard = new JButton("Pick a card");
+		btnPickCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameMaster.btnPickCardClicked();
+			}
+		});
+		btnPickCard.setEnabled(false);
+		btnPickCard.setBounds(12, 156, 172, 25);
+		panel_1.add(btnPickCard);
+		
+		btnPayBail = new JButton("Pay Bail");
+		btnPayBail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameMaster.btnPayBailClicked();
+			}
+		});
+		btnPayBail.setEnabled(false);
+		btnPayBail.setBounds(12, 194, 172, 25);
+		panel_1.add(btnPayBail);
+		
+		btnEndTurn = new JButton("End Turn");
+		btnEndTurn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameMaster.btnEndTurnClicked();
+			}
+		});
+		btnEndTurn.setEnabled(false);
+		btnEndTurn.setBounds(12, 232, 172, 25);
+		panel_1.add(btnEndTurn);
 		
 		JLabel bgLbl = new JLabel();
 		bgLbl.setBounds(0, 0, 904, 895);

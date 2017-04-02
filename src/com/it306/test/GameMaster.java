@@ -92,14 +92,35 @@ public class GameMaster {
 	}
 	
 	public void startGame() {
-		PlayerPanel x = new PlayerPanel(getCurrentPlayer());
-		x.setBounds(354, 305, 196, 270);
-		gameBoard.panel_1.add(x);
 		gameBoard.frame.setVisible(true);
+		gameBoard.label_1.setText(getCurrentPlayer().getName());
+		play();
 	}
 	
 	public void play() {
+		Player plr = getCurrentPlayer();
+		gameBoard.label_1.setText(plr.getName());
 		
+		// The button enablers should come here actually
+		// No matter where you are, you are always eligible for
+		// rolling a dice.
+		gameBoard.btnPlay.setEnabled(true);
+		// Check for the jail parameter
+		if (plr.isInJail()) {
+			gameBoard.btnPayBail.setEnabled(true);
+			
+		}
+		
+		
+	}
+	
+	public void disableAllButtons() {
+		gameBoard.btnPlay.setEnabled(false);
+		gameBoard.btnTrade.setEnabled(false);
+		gameBoard.btnPickCard.setEnabled(false);
+		gameBoard.btnPayBail.setEnabled(false);
+		gameBoard.btnBuyProperty.setEnabled(false);
+		gameBoard.btnEndTurn.setEnabled(false);
 	}
 	
 	public Object getCellAtPos(int pos) {
