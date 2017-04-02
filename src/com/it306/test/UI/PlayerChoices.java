@@ -64,7 +64,7 @@ public class PlayerChoices {
 						JOptionPane.showMessageDialog(null, "You are out of Jail!",
 								"Message", JOptionPane.INFORMATION_MESSAGE);
 						int new_pos = pos + value.get(2);
-						gameMaster.movePlayer(new_pos);
+//						gameMaster.movePlayer(new_pos);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
@@ -74,7 +74,7 @@ public class PlayerChoices {
 				}
 				else {
 					int new_pos = pos + value.get(2);
-					gameMaster.movePlayer(new_pos);
+//					gameMaster.movePlayer(new_pos);
 					btnPlay.setEnabled(false);
 				}
 				btnEnablers(plr);

@@ -25,6 +25,9 @@ import java.awt.event.ActionEvent;
 
 public class Start {
 
+	@SuppressWarnings("unused")
+	private GameMaster gameMaster;
+	private Board gameBoard;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -124,8 +127,11 @@ public class Start {
 				}
 				//Everything starts from here.
 				frame.dispose();
-				GameMaster gameMaster = new GameMaster(players);
-				gameMaster.play();
+				GameMaster gameMaster = GameMaster.instance();
+				gameBoard = new Board(choice);
+				gameMaster.setGameBoard(gameBoard);
+				gameMaster.setPlayers(players);
+				gameMaster.startGame();
 				//And it ends here. Add start game method before ending this method.
 			}
 		});

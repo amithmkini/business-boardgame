@@ -27,22 +27,26 @@ public class Board {
 	public JLabel p1;
 	public JLabel p2;
 	public JLabel p3;
-
+	public JPanel panel_1;
+	public boolean turnStarted = false;
+	public GameMaster gameMaster;
+	
 	/**
 	 * Create the application.
 	 */
-	public Board(ArrayList<String> plrs) {
-		initialize(plrs);
+	public Board(int choice) {
+		initialize(choice);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<String> plrs) {
+	private void initialize(int choice) {
+
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 910, 930);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = (JPanel)frame.getContentPane();
 		frame.getContentPane().setLayout(null);
 		
@@ -137,7 +141,7 @@ public class Board {
 		p2.setBackground(Color.GREEN);
 		p2.setBounds(849, 829, 20, 20);
 		frame.getContentPane().add(p2);
-		if (plrs.size() < 3) {
+		if (choice < 3) {
 			p2.setVisible(false);
 		}
 		
@@ -147,17 +151,103 @@ public class Board {
 		p3.setOpaque(true);
 		p3.setBounds(849, 862, 20, 20);
 		frame.getContentPane().add(p3);
-		if (plrs.size() < 4) {
+		if (choice < 4) {
 			p3.setVisible(false);
 		}
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(347, 279, 222, 333);
+		frame.getContentPane().add(panel_1);
 		
 		JLabel bgLbl = new JLabel();
 		bgLbl.setBounds(0, 0, 904, 895);
 		bgLbl.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(Board.class.getResource("/media/background.jpg"))));
 		panel.add(bgLbl);
 		frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
 	}
+	
+//	public void btnEnablers(GameMaster gameMaster) {
+//	
+//		Player plr = gameMaster.getCurrentPlayer();
+//	
+//		btnPlay.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				turnStarted = true;
+//				ArrayList<Integer> value = plr.rollDice();
+//				String msg = "You rolled ";
+//				msg = msg + String.valueOf(value.get(0)) + " and " + String.valueOf(value.get(1));
+//				JOptionPane.showMessageDialog(null, msg,
+//						"Message", JOptionPane.INFORMATION_MESSAGE);				
+//				int pos = plr.getPosition();
+//				if (plr.isInJail()) {
+//					if (value.get(3) == 1) {
+//						JOptionPane.showMessageDialog(null, "You are out of Jail!",
+//								"Message", JOptionPane.INFORMATION_MESSAGE);
+//						int new_pos = pos + value.get(2);
+//						plr.setPosition(new_pos);
+//						setPlayerPos(new_pos, plr);
+//					}
+//					else {
+//						JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
+//								"Message", JOptionPane.INFORMATION_MESSAGE);
+//					}
+//					// Put something here
+//				}
+//				else {
+//					int new_pos = pos + value.get(2);
+//					plr.setPosition(new_pos);
+//					setPlayerPos(new_pos, plr);
+//					btnPlay.setEnabled(false);
+//				}
+//			}
+//		});
+//	
+//		Player plr = gameMaster.getCurrentPlayer();
+//		label_1.setText(plr.getName());
+//		
+//		
+//		
+//		btnEndTurn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("And here");
+//				turnStarted = false;
+//				gameMaster.switchTurn();
+//				System.out.println("This is executed now..");
+//			}
+//		});
+//		
+//		if (turnStarted == false) {
+//			System.out.println("Entered here now");
+//			btnPlay.setEnabled(true);
+//			btnEndTurn.setEnabled(false);
+//			btnTrade.setEnabled(false);
+//			if (plr.isInJail()) {
+//				btnPayBail.setEnabled(true);
+//			}
+//			else {
+//				btnPayBail.setEnabled(false);
+//			}
+//			btnPickCard.setEnabled(false);
+//			btnBuyProperty.setEnabled(false);
+//		}
+//
+//		else {
+//			btnPlay.setEnabled(false);
+//			btnEndTurn.setEnabled(true);
+//			btnTrade.setEnabled(true);
+//			Cell x = (Cell) gameMaster.cellList.get(plr.getPosition());
+//			if (x.isBuyable()) {
+//				btnBuyProperty.setEnabled(true);
+//			}
+//			else {
+//				btnBuyProperty.setEnabled(false);
+//			}
+//			if (x.isChance() || x.isCommunity_chest()) {
+//				btnPickCard.setEnabled(true);
+//			}
+//			btnPayBail.setEnabled(false);
+//		}
+//	}
 	
 	public void setPlayerPos(int pos, Player plr) {
 		JLabel pLabel = plr.lbl;
@@ -184,5 +274,4 @@ public class Board {
 			pLabel.setBounds(x_new, y_new, 20, 20);
 		}
 	}
-	
 }

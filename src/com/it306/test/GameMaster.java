@@ -9,47 +9,35 @@ package com.it306.test;
  */
 
 import com.it306.test.UI.*;
+
 import java.util.ArrayList;
 import javax.swing.JLabel;
+//import javax.swing.JPanel;
 
 public class GameMaster {
 	private int noOfPlayers;
+	private static GameMaster gameMaster;
 	private Board gameBoard;
 	private int initMoney = 1500;
-	private ArrayList<Player> playerList = new ArrayList<Player>();
+	public ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
 	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
 	public ArrayList<Object> cellList = new ArrayList<Object>();
 	public ArrayList<Card> chanceCards;
 	public ArrayList<Card> communityCards;
 	
-	public GameMaster(ArrayList<String> plrs) {
-		try {
-			gameBoard = new Board(plrs);
-			gameBoard.frame.setVisible(true);
-			setPlayers(plrs);
-			chanceCards = new ChanceBuilder().build();
-			communityCards = new CommunityBuilder().build();
-			{
-				GOCell x = new GOCell();
-				cellList.add(x);
-				Property y = new Property("XYZ",1,125,"G");
-				cellList.add(y);
-				CommunityChestCell z = new CommunityChestCell(2);
-				cellList.add(z);
-				Property y1 = new Property("XYZ",3,125,"G");
-				cellList.add(y1);
-				IncomeTaxCell it = new IncomeTaxCell(4, 50);
-				cellList.add(it);
-				Property y2 = new Property("XYZ",5,125,"G");
-				cellList.add(y2);
-				
-			}
-//			cellList = new CellBuilder().read();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+	
+	public static GameMaster instance() {
+		if (gameMaster == null) {
+			gameMaster = new GameMaster();
 		}
+		return gameMaster;
+	}
+	
+	public GameMaster() {
+		chanceCards = new ChanceBuilder().build();
+		communityCards = new CommunityBuilder().build();
+//		cellList = new CellBuilder().read();
 	}
 	
 	public void setPlayers(ArrayList<String> plrs) {
@@ -103,17 +91,14 @@ public class GameMaster {
 		}
 	}
 	
-	public void movePlayer(int pos) {
-		Player plr = getCurrentPlayer();
-		plr.setPosition(pos);
-		gameBoard.setPlayerPos(pos, plr);
+	public void startGame() {
+		PlayerPanel x = new PlayerPanel(getCurrentPlayer());
+		x.setBounds(354, 305, 196, 270);
+		gameBoard.panel_1.add(x);
+		gameBoard.frame.setVisible(true);
 	}
 	
 	public void play() {
-		Player plr = getCurrentPlayer();
-		PlayerChoices dialog = new PlayerChoices(this);
-		dialog.btnEnablers(plr);
-		dialog.initialize(plr);
 		
 	}
 	
@@ -121,5 +106,32 @@ public class GameMaster {
 		return cellList.get(pos);
 	}
 	
+	public void btnPlayClicked() {
+		
+	}
+	
+	public void btnBuyPropertyClicked() {
+		
+	}
+	
+	public void btnTradeClicked() {
+		
+	}
+	
+	public void btnPickCardClicked() {
+		
+	}
+	
+	public void btnPayBailClicked() {
+		
+	}
+	
+	public void btnEndTurnClicked() {
+		
+	}
+
+	public void setGameBoard(Board b) {
+		this.gameBoard = b;
+	}
 	
 }
