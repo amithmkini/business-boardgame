@@ -27,7 +27,7 @@ public class PlayerChoices {
 	public JButton btnPayBail = new JButton("Pay Bail");
 	public JButton btnPickCard = new JButton("Pick a Card");
 	public JButton btnBuyProperty = new JButton("Buy Property");
-	private GameMaster gameMaster;
+	public GameMaster gameMaster;
 	public boolean turnStarted = false;
 //	private boolean pickedCard = false;
 	

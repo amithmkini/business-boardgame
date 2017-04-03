@@ -12,7 +12,7 @@ import com.it306.test.UI.*;
 
 import java.util.ArrayList;
 import javax.swing.JLabel;
-//import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 public class GameMaster {
 	private int noOfPlayers;
@@ -37,6 +37,31 @@ public class GameMaster {
 	public GameMaster() {
 		chanceCards = new ChanceBuilder().build();
 		communityCards = new CommunityBuilder().build();
+		{
+			GOCell x = new GOCell();
+			cellList.add(x);
+			
+			Property a = new Property("M A", 1, 200, "Brown");
+			cellList.add(a);
+			
+			CommunityChestCell b = new CommunityChestCell(2);
+			cellList.add(b);
+			
+			Property c = new Property("M A", 3, 200, "Brown");
+			cellList.add(c);
+			
+			IncomeTaxCell d = new IncomeTaxCell(4, 200);
+			cellList.add(d);
+			
+			Property e = new Property("M A", 5, 200, "Brown");
+			cellList.add(e);
+			
+			Property f = new Property("M A", 6, 200, "Brown");
+			cellList.add(f);
+			
+			ChanceCell g = new ChanceCell(7);
+			cellList.add(g);
+		}
 //		cellList = new CellBuilder().read();
 	}
 	
@@ -65,7 +90,7 @@ public class GameMaster {
 		}
 		else {
 			//This is just a placeholder. Do something here.
-			//play();
+			play();
 		}
 	}
 	
@@ -108,10 +133,7 @@ public class GameMaster {
 		// Check for the jail parameter
 		if (plr.isInJail()) {
 			gameBoard.btnPayBail.setEnabled(true);
-			
 		}
-		
-		
 	}
 	
 	public void disableAllButtons() {
@@ -128,9 +150,61 @@ public class GameMaster {
 	}
 	
 	public void btnPlayClicked() {
+		gameBoard.turnStarted = true;
+		Player plr = getCurrentPlayer();
+		ArrayList<Integer> value = plr.rollDice();
+		String msg = "You rolled ";
+		msg = msg + String.valueOf(value.get(0)) + " and " + String.valueOf(value.get(1));
+		JOptionPane.showMessageDialog(null, msg,
+				"Message", JOptionPane.INFORMATION_MESSAGE);
+		int pos = plr.getPosition();
+		if (plr.isInJail()) {
+			if (value.get(3) == 1) {
+				JOptionPane.showMessageDialog(null, "You are out of Jail!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				int new_pos = (pos + value.get(2)) % 40;
+				if (pos + value.get(2) > 40) {
+					plr.addMoney(200);
+				}
+				plr.setPosition(new_pos);
+				gameBoard.setPlayerPos(new_pos, plr);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				//Do something to end turn here
+			}
+		}
+		else {
+			int new_pos = (pos + value.get(2)) % 40;
+			if (pos + value.get(2) > 40) {
+				//Collect Go!
+				plr.addMoney(200);
+			}
+			plr.setPosition(new_pos);
+			gameBoard.setPlayerPos(new_pos, plr);
+		}
+		
+		
+		if (!plr.isInJail()) {
+			gameBoard.btnEndTurn.setEnabled(true);
+			payRent(plr);
+			Cell current = (Cell) getCellAtPos(plr.getPosition());
+			if (current.getOwner() == "Bank" && current.isBuyable()) {
+				gameBoard.btnBuyProperty.setEnabled(true);
+			}
+			else if (current.isChance() || current.isCommunity_chest()) {
+				gameBoard.btnPickCard.setEnabled(true);
+			}
+		}
 		
 	}
 	
+
+	private void payRent(Player plr) {
+		
+	}
+
 	public void btnBuyPropertyClicked() {
 		
 	}
@@ -148,7 +222,8 @@ public class GameMaster {
 	}
 	
 	public void btnEndTurnClicked() {
-		
+		disableAllButtons();
+		switchTurn();
 	}
 
 	public void setGameBoard(Board b) {
