@@ -10,5 +10,6 @@ public class Test {
         System.out.println("Hello, world!");
         Dice a = new Dice();
         System.out.println("Dice output: " + a.roll());
+        
     }
 }

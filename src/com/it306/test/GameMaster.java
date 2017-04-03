@@ -34,7 +34,7 @@ public class GameMaster {
 		return gameMaster;
 	}
 	
-	public GameMaster() {
+	private GameMaster() {
 		chanceCards = new ChanceBuilder().build();
 		communityCards = new CommunityBuilder().build();
 		{
@@ -172,7 +172,8 @@ public class GameMaster {
 			else {
 				JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
-				//Do something to end turn here
+				disableAllButtons();
+				gameBoard.btnEndTurn.setEnabled(true);
 			}
 		}
 		else {
@@ -180,6 +181,12 @@ public class GameMaster {
 			if (pos + value.get(2) > 40) {
 				//Collect Go!
 				plr.addMoney(200);
+			}
+			else if (new_pos == 30) {
+				JOptionPane.showMessageDialog(null, "You are in Jail!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				disableAllButtons();
+				gameBoard.btnEndTurn.setEnabled(true);
 			}
 			plr.setPosition(new_pos);
 			gameBoard.setPlayerPos(new_pos, plr);
@@ -195,6 +202,7 @@ public class GameMaster {
 			}
 			else if (current.isChance() || current.isCommunity_chest()) {
 				gameBoard.btnPickCard.setEnabled(true);
+				gameBoard.btnEndTurn.setEnabled(false);
 			}
 		}
 		
