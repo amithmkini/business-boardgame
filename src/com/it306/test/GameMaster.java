@@ -41,8 +41,7 @@ public class GameMaster {
 			GOCell x = new GOCell();
 			cellList.add(x);
 			
-			Property a = new Property("M A", 1, 200, "Brown");
-			cellList.add(a);
+			cellList.add(new Property("M A", 1, 200, "Brown"));
 			
 			CommunityChestCell b = new CommunityChestCell(2);
 			cellList.add(b);
