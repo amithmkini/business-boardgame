@@ -15,8 +15,8 @@ public class CellBuilder {
 	
 	public ArrayList<Object> read() {
 		
-		//Fill this up with a python code ;)
-		
+		// Fill this up with a python code ;)
+		// Filled it! File at /src/media
 		cellList.add(new GOCell());
 		cellList.add(new Property("Medittaranean Avenue",1,60,"Brown"));
 		cellList.add(new CommunityChestCell(2));
