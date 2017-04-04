@@ -18,6 +18,7 @@ public abstract class Cell {
 	private String colourGroup;
 	private boolean chance = false;
 	private boolean community_chest = false;
+	private boolean taxCollection = false;
 
 	public int getPosition() {
 		return position;
@@ -80,5 +81,13 @@ public abstract class Cell {
 	}
 	public void setCommunity_chest(boolean community_chest) {
 		this.community_chest = community_chest;
+	}
+	
+	public boolean isTaxCollection() {
+		return taxCollection;
+	}
+	
+	public void setTaxCollection(boolean taxCollection) {
+		this.taxCollection = taxCollection;
 	}
 }

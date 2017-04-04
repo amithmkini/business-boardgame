@@ -37,31 +37,8 @@ public class GameMaster {
 	private GameMaster() {
 		chanceCards = new ChanceBuilder().build();
 		communityCards = new CommunityBuilder().build();
-		{
-			GOCell x = new GOCell();
-			cellList.add(x);
-			
-			cellList.add(new Property("M A", 1, 200, "Brown"));
-			
-			CommunityChestCell b = new CommunityChestCell(2);
-			cellList.add(b);
-			
-			Property c = new Property("M A", 3, 200, "Brown");
-			cellList.add(c);
-			
-			IncomeTaxCell d = new IncomeTaxCell(4, 200);
-			cellList.add(d);
-			
-			Property e = new Property("M A", 5, 200, "Brown");
-			cellList.add(e);
-			
-			Property f = new Property("M A", 6, 200, "Brown");
-			cellList.add(f);
-			
-			ChanceCell g = new ChanceCell(7);
-			cellList.add(g);
-		}
-//		cellList = new CellBuilder().read();
+
+		cellList = new CellBuilder().read();
 	}
 	
 	public void setPlayers(ArrayList<String> plrs) {
@@ -137,7 +114,7 @@ public class GameMaster {
 	
 	public void disableAllButtons() {
 		gameBoard.btnPlay.setEnabled(false);
-		gameBoard.btnTrade.setEnabled(false);
+		//gameBoard.btnTrade.setEnabled(false);
 		gameBoard.btnPickCard.setEnabled(false);
 		gameBoard.btnPayBail.setEnabled(false);
 		gameBoard.btnBuyProperty.setEnabled(false);
@@ -150,6 +127,7 @@ public class GameMaster {
 	
 	public void btnPlayClicked() {
 		gameBoard.turnStarted = true;
+		gameBoard.btnPlay.setEnabled(false);
 		Player plr = getCurrentPlayer();
 		ArrayList<Integer> value = plr.rollDice();
 		String msg = "You rolled ";
@@ -161,8 +139,10 @@ public class GameMaster {
 			if (value.get(3) == 1) {
 				JOptionPane.showMessageDialog(null, "You are out of Jail!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
+				plr.setInJail(false);
+				gameBoard.btnPayBail.setEnabled(false);
 				int new_pos = (pos + value.get(2)) % 40;
-				if (pos + value.get(2) > 40) {
+				if (pos + value.get(2) >= 40) {
 					plr.addMoney(200);
 				}
 				plr.setPosition(new_pos);
@@ -177,7 +157,7 @@ public class GameMaster {
 		}
 		else {
 			int new_pos = (pos + value.get(2)) % 40;
-			if (pos + value.get(2) > 40) {
+			if (pos + value.get(2) >= 40) {
 				//Collect Go!
 				plr.addMoney(200);
 			}
@@ -185,6 +165,7 @@ public class GameMaster {
 				JOptionPane.showMessageDialog(null, "You are in Jail!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
 				disableAllButtons();
+				plr.setInJail(true);
 				gameBoard.btnEndTurn.setEnabled(true);
 			}
 			plr.setPosition(new_pos);
@@ -194,7 +175,6 @@ public class GameMaster {
 		
 		if (!plr.isInJail()) {
 			gameBoard.btnEndTurn.setEnabled(true);
-			payRent(plr);
 			Cell current = (Cell) getCellAtPos(plr.getPosition());
 			if (current.getOwner() == "Bank" && current.isBuyable()) {
 				gameBoard.btnBuyProperty.setEnabled(true);
@@ -203,13 +183,26 @@ public class GameMaster {
 				gameBoard.btnPickCard.setEnabled(true);
 				gameBoard.btnEndTurn.setEnabled(false);
 			}
+			else if (current.isTaxCollection()) {
+				payTax(plr);
+			}
+			else if (current.getOwner() != "Bank") {
+				Property prop = (Property) getCellAtPos(plr.getPosition());
+				payRent(plr,prop);
+			}
 		}
 		
 	}
 	
 
-	private void payRent(Player plr) {
+	private void payTax(Player plr) {
 		
+		gameBoard.btnEndTurn.setEnabled(true);
+	}
+
+	private void payRent(Player plr, Property p) {
+		
+		gameBoard.btnEndTurn.setEnabled(true);
 	}
 
 	public void btnBuyPropertyClicked() {
@@ -222,10 +215,12 @@ public class GameMaster {
 	
 	public void btnPickCardClicked() {
 		
+		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
 	public void btnPayBailClicked() {
 		
+		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
 	public void btnEndTurnClicked() {

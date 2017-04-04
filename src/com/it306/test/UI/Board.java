@@ -42,7 +42,7 @@ public class Board {
 	public JButton btnPickCard;
 	public JButton btnPayBail;
 	public JButton btnEndTurn;
-	
+	public int i = 1;
 	/**
 	 * Create the application.
 	 */
@@ -55,7 +55,8 @@ public class Board {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(int choice) {
-
+		
+		cellList = GameMaster.instance().cellList;
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 910, 930);
@@ -76,27 +77,52 @@ public class Board {
 			}
 		});
 		
+		// The labels between 1 and 9
 		int arg0 = 709;
-		
-		for (int i = 0; i < 9; i++) {
+		for (int i = 1; i < 10; i++) {
 			JLabel x = new JLabel();
 			x.setBounds(arg0, 779, 74, 116);
 			frame.getContentPane().add(x);
+			
+			x.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					Cell y = (Cell) cellList.get(cells.indexOf(x));
+					@SuppressWarnings("unused")
+					PropertyInfo disp = new PropertyInfo(y);
+				}
+			});
+			
 			cells.add(x);
 			arg0 = arg0 - 74;
 		}
+		
 		// The "Just visiting" label
 		JLabel label_10 = new JLabel("");
 		label_10.setBounds(0, 779, 119, 116);
 		frame.getContentPane().add(label_10);
+		label_10.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Cell x = (Cell) cellList.get(cells.indexOf(label_10));
+				@SuppressWarnings("unused")
+				PropertyInfo disp = new PropertyInfo(x);
+			}
+		});
 		cells.add(label_10);
 		
 		int arg1 = 707;
 		
-		for (int i = 0; i < 9; i++) {
+		// Labels between 11 and 19
+		for (i = 11; i < 20; i++) {
 			JLabel x = new JLabel();
 			x.setBounds(0, arg1, 119, 71);
 			frame.getContentPane().add(x);
+			x.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					Cell y = (Cell) cellList.get(cells.indexOf(x));
+					@SuppressWarnings("unused")
+					PropertyInfo disp = new PropertyInfo(y);
+				}
+			});
 			cells.add(x);
 			arg1 = arg1 - 74;
 		}
@@ -106,14 +132,29 @@ public class Board {
 		JLabel label_20 = new JLabel("");
 		label_20.setBounds(0, 0, 119, 116);
 		frame.getContentPane().add(label_20);
+		label_20.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Cell x = (Cell) cellList.get(cells.indexOf(label_20));
+				@SuppressWarnings("unused")
+				PropertyInfo disp = new PropertyInfo(x);
+			}
+		});
 		cells.add(label_20);
 		
 		int arg2 = 118;
 		
-		for (int i = 0; i < 9; i++) {
+		// Labels between 21 and 29
+		for (i = 21; i < 30; i++) {
 			JLabel x = new JLabel();
 			x.setBounds(arg2, 0, 74, 116);
 			frame.getContentPane().add(x);
+			x.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					Cell y = (Cell) cellList.get(cells.indexOf(x));
+					@SuppressWarnings("unused")
+					PropertyInfo disp = new PropertyInfo(y);
+				}
+			});
 			cells.add(x);
 			arg2 = arg2 + 74;
 		}
@@ -122,14 +163,29 @@ public class Board {
 		JLabel label_30 = new JLabel("");
 		label_30.setBounds(785, 0, 119, 116);
 		frame.getContentPane().add(label_30);
+		label_30.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Cell x = (Cell) cellList.get(cells.indexOf(label_30));
+				@SuppressWarnings("unused")
+				PropertyInfo disp = new PropertyInfo(x);
+			}
+		});
 		cells.add(label_30);
 
 		int arg3 = 117;
 		
-		for (int i = 0; i < 9; i++) {
+		// Labels between 31 and 39
+		for (i = 31; i < 40; i++) {
 			JLabel x = new JLabel();
 			x.setBounds(785, arg3, 119, 71);
 			frame.getContentPane().add(x);
+			x.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					Cell y = (Cell) cellList.get(cells.indexOf(x));
+					@SuppressWarnings("unused")
+					PropertyInfo disp = new PropertyInfo(y);
+				}
+			});
 			cells.add(x);
 			arg3 = arg3 + 74;
 		}
@@ -249,89 +305,6 @@ public class Board {
 		panel.add(bgLbl);
 		frame.setLocationRelativeTo(null);
 	}
-	
-//	public void btnEnablers(GameMaster gameMaster) {
-//	
-//		Player plr = gameMaster.getCurrentPlayer();
-//	
-//		btnPlay.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				turnStarted = true;
-//				ArrayList<Integer> value = plr.rollDice();
-//				String msg = "You rolled ";
-//				msg = msg + String.valueOf(value.get(0)) + " and " + String.valueOf(value.get(1));
-//				JOptionPane.showMessageDialog(null, msg,
-//						"Message", JOptionPane.INFORMATION_MESSAGE);				
-//				int pos = plr.getPosition();
-//				if (plr.isInJail()) {
-//					if (value.get(3) == 1) {
-//						JOptionPane.showMessageDialog(null, "You are out of Jail!",
-//								"Message", JOptionPane.INFORMATION_MESSAGE);
-//						int new_pos = pos + value.get(2);
-//						plr.setPosition(new_pos);
-//						setPlayerPos(new_pos, plr);
-//					}
-//					else {
-//						JOptionPane.showMessageDialog(null, "You are stuck in Jail!",
-//								"Message", JOptionPane.INFORMATION_MESSAGE);
-//					}
-//					// Put something here
-//				}
-//				else {
-//					int new_pos = pos + value.get(2);
-//					plr.setPosition(new_pos);
-//					setPlayerPos(new_pos, plr);
-//					btnPlay.setEnabled(false);
-//				}
-//			}
-//		});
-//	
-//		Player plr = gameMaster.getCurrentPlayer();
-//		label_1.setText(plr.getName());
-//		
-//		
-//		
-//		btnEndTurn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("And here");
-//				turnStarted = false;
-//				gameMaster.switchTurn();
-//				System.out.println("This is executed now..");
-//			}
-//		});
-//		
-//		if (turnStarted == false) {
-//			System.out.println("Entered here now");
-//			btnPlay.setEnabled(true);
-//			btnEndTurn.setEnabled(false);
-//			btnTrade.setEnabled(false);
-//			if (plr.isInJail()) {
-//				btnPayBail.setEnabled(true);
-//			}
-//			else {
-//				btnPayBail.setEnabled(false);
-//			}
-//			btnPickCard.setEnabled(false);
-//			btnBuyProperty.setEnabled(false);
-//		}
-//
-//		else {
-//			btnPlay.setEnabled(false);
-//			btnEndTurn.setEnabled(true);
-//			btnTrade.setEnabled(true);
-//			Cell x = (Cell) gameMaster.cellList.get(plr.getPosition());
-//			if (x.isBuyable()) {
-//				btnBuyProperty.setEnabled(true);
-//			}
-//			else {
-//				btnBuyProperty.setEnabled(false);
-//			}
-//			if (x.isChance() || x.isCommunity_chest()) {
-//				btnPickCard.setEnabled(true);
-//			}
-//			btnPayBail.setEnabled(false);
-//		}
-//	}
 	
 	public void setPlayerPos(int pos, Player plr) {
 		JLabel pLabel = plr.lbl;
