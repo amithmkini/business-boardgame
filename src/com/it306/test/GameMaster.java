@@ -9,16 +9,22 @@ package com.it306.test;
  */
 
 import com.it306.test.UI.*;
-
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GameMaster {
 	private int noOfPlayers;
+	// This is a static class as this should be instantiated only once.
 	private static GameMaster gameMaster;
+	// The gameboard
 	private Board gameBoard;
+	// Initial money assigned to each player
 	private int initMoney = 1500;
+	private int bailAmt = 500;
+	// The list of players in the game. Made public so that other classes
+	// can access it.
 	public ArrayList<Player> playerList = new ArrayList<Player>();
 	private int turn = 0;
 	public ArrayList<JLabel> pLabels = new ArrayList<JLabel>();
@@ -93,6 +99,7 @@ public class GameMaster {
 	}
 	
 	public void startGame() {
+		initPlayers();
 		gameBoard.frame.setVisible(true);
 		gameBoard.label_1.setText(getCurrentPlayer().getName());
 		play();
@@ -100,11 +107,11 @@ public class GameMaster {
 	
 	public void play() {
 		Player plr = getCurrentPlayer();
+		System.out.println(plr.getMoney());
 		gameBoard.label_1.setText(plr.getName());
 		
-		// The button enablers should come here actually
-		// No matter where you are, you are always eligible for
-		// rolling a dice.
+//		The button enablers should come here actually.
+//		No matter where you are, you are always eligible for rolling a dice.
 		gameBoard.btnPlay.setEnabled(true);
 		// Check for the jail parameter
 		if (plr.isInJail()) {
@@ -114,7 +121,6 @@ public class GameMaster {
 	
 	public void disableAllButtons() {
 		gameBoard.btnPlay.setEnabled(false);
-		//gameBoard.btnTrade.setEnabled(false);
 		gameBoard.btnPickCard.setEnabled(false);
 		gameBoard.btnPayBail.setEnabled(false);
 		gameBoard.btnBuyProperty.setEnabled(false);
@@ -193,20 +199,33 @@ public class GameMaster {
 		}
 		
 	}
-	
-
-	private void payTax(Player plr) {
-		
-		gameBoard.btnEndTurn.setEnabled(true);
-	}
-
-	private void payRent(Player plr, Property p) {
-		
-		gameBoard.btnEndTurn.setEnabled(true);
-	}
 
 	public void btnBuyPropertyClicked() {
-		
+		Player plr = getCurrentPlayer();
+		Property p = (Property) getCellAtPos(plr.getPosition());
+//		If the property is not buyable, then raise an 'error'.		
+		if (p.getOwner() != "Bank") {
+			JOptionPane.showMessageDialog(null, "This is already owned!",
+					"Message", JOptionPane.INFORMATION_MESSAGE);
+		}
+//		Else, check for sufficient funds in the Player wallet.
+		else {
+			int value = p.getValue();
+			if (plr.getMoney() < value) {
+				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+//				Subtract the money from the player's chest
+				plr.subMoney(value);
+				plr.addProperty(p);
+				p.setPowner(plr);
+				p.setOwner(plr.getName());
+				JOptionPane.showMessageDialog(null, "Successfully bought!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				gameBoard.btnBuyProperty.setEnabled(false);
+			}
+		}
 	}
 	
 	public void btnTradeClicked() {
@@ -214,13 +233,91 @@ public class GameMaster {
 	}
 	
 	public void btnPickCardClicked() {
+		Player plr = getCurrentPlayer();
+		int value = plr.getMoney();
+		Cell x = (Cell) getCellAtPos(plr.getPosition());
+		Card picked = null;
+		int card_num = -1;
+		if (x.isChance()) {
+			card_num = ThreadLocalRandom.current().nextInt(0, chanceCards.size());
+			picked = chanceCards.get(card_num);
+			JOptionPane.showMessageDialog(null, picked.message,
+					"Chance", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			card_num = ThreadLocalRandom.current().nextInt(0, communityCards.size());
+			picked = communityCards.get(card_num);
+			JOptionPane.showMessageDialog(null, picked.message,
+					"Community Chest", JOptionPane.INFORMATION_MESSAGE);
+		}
+		boolean f = true;
+		while (f) {
+			if (picked.pos == -1) {
+				if (value < - picked.value) {
+					JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+							"Message", JOptionPane.INFORMATION_MESSAGE);
+//					Open a trade dialogue to help him out
+//					But before that, check if he can manage to pay money..
+					int total_value = 0;
+					for (Property p : plr.getPropertyList()) {
+						total_value = total_value + p.getValue();
+					}
+					if (total_value + plr.getMoney() < - picked.value) {
+						JOptionPane.showMessageDialog(null, "You have insufficient funds and you "
+								+ "cannot pay the money!",
+								"Message", JOptionPane.INFORMATION_MESSAGE);
+						plr.setOut(true);
+						plr.destroy();
+						f = false;
+					}
+					trader();
+					continue;
+				}
+				else {
+					plr.addMoney(picked.value);
+					f = false;
+				}
+			}
+			else {
+//					Movement of player happens here.
+				if (plr.getPosition() > picked.pos) {
+					//Collect GO money
+					plr.addMoney(200);
+				}
+				int new_pos = picked.pos;
+				plr.setPosition(new_pos);
+				gameBoard.setPlayerPos(new_pos, plr);
+				if (new_pos == 30) {
+					plr.setInJail(true);
+				}
+				f = false;
+			}
+		}
 		
+		disableAllButtons();
 		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
-	public void btnPayBailClicked() {
+	private void trader() {
+		// TODO Auto-generated method stub
 		
-		gameBoard.btnEndTurn.setEnabled(true);
+	}
+
+	public void btnPayBailClicked() {
+		Player plr = getCurrentPlayer();
+		int funds = plr.getMoney();
+		if (bailAmt > funds) {
+			JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+					"Message", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			plr.subMoney(bailAmt);
+			JOptionPane.showMessageDialog(null, "You are out of the jail!",
+					"Message", JOptionPane.INFORMATION_MESSAGE);
+			plr.setInJail(false);
+			disableAllButtons();
+			gameBoard.btnPlay.setEnabled(true);
+		}
 	}
 	
 	public void btnEndTurnClicked() {
@@ -230,6 +327,17 @@ public class GameMaster {
 
 	public void setGameBoard(Board b) {
 		this.gameBoard = b;
+	}
+
+	private void payTax(Player plr) {
+		
+		gameBoard.btnEndTurn.setEnabled(true);
+	}
+
+	private void payRent(Player plr, Property p) {
+		
+		disableAllButtons();
+		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
 }

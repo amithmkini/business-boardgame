@@ -88,13 +88,8 @@ public class Player {
 	 * @param money : the money to be subtracted
 	 * This method subtracts the money from the player
 	 */
-	public int subMoney(int sub) {
-		if (sub < this.money) {
-			//TODO Add a GUI or something here.
-			return 1;
-		}
+	public void subMoney(int sub) {
 		this.money = this.money - sub;
-		return 0;
 	}
 	
 
@@ -155,6 +150,10 @@ public class Player {
 		}
 	}
 	
+	public ArrayList<Property> getPropertyList() {
+		return properties;
+	}
+	
 	public ArrayList<Integer> rollDice() {
 		Dice die = new Dice();
 		int a = die.roll();
@@ -172,6 +171,16 @@ public class Player {
 			dice.add(0);
 		}
 		return dice;
+	}
+	
+	public void destroy() {
+		if (getIsOut()) {
+			lbl.setVisible(false);
+			for (Property x : properties) {
+				x.setPowner(null);
+				x.setOwner("Bank");
+			}
+		}
 	}
 	
 }
