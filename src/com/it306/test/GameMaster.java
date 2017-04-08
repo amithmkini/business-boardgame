@@ -67,12 +67,19 @@ public class GameMaster {
 	public void switchTurn() {
 		turn = (turn + 1) % noOfPlayers;
 		Player currPlr = getCurrentPlayer();
-		if (currPlr.getIsOut()) {
-			switchTurn();
+		Player plr = checkWinner();
+		if (plr == null) {
+			if (currPlr.getIsOut()) {
+				switchTurn();
+			}
+			else {
+				//This is just a placeholder. Do something here.
+				play();
+			}
 		}
 		else {
-			//This is just a placeholder. Do something here.
-			play();
+			//Display a banner saying that they won the game!
+			displayBanner(plr);
 		}
 	}
 	
@@ -82,10 +89,27 @@ public class GameMaster {
 	
 	public Player checkWinner() {
 		Player plr = null;
-		//This is just a placeholder. Actual method must come.
+		int count = 0;
+		for (Player x : playerList) {
+			if (x.getIsOut() == true) {
+				count = count + 1;
+			}
+		}
+		if (count == 1) {
+			for (Player x : playerList ) {
+				if (x.getIsOut() == false) {
+					plr = x;
+				}
+			}
+		}
 		return plr;
 	}
 	
+	private void displayBanner(Player x) {
+		// TODO Finish this part...
+		
+	}
+
 	public void initPlayers() {
 		if (playerList.size() != 0) {
 			for (Player x : playerList) {
@@ -107,9 +131,9 @@ public class GameMaster {
 	
 	public void play() {
 		Player plr = getCurrentPlayer();
-		System.out.println(plr.getMoney());
 		gameBoard.label_1.setText(plr.getName());
-		
+		gameBoard.lblRent.setText(null);
+		updateLabels();
 //		The button enablers should come here actually.
 //		No matter where you are, you are always eligible for rolling a dice.
 		gameBoard.btnPlay.setEnabled(true);
@@ -194,10 +218,10 @@ public class GameMaster {
 			}
 			else if (current.getOwner() != "Bank") {
 				Property prop = (Property) getCellAtPos(plr.getPosition());
-				payRent(plr,prop);
+				payRent(prop);
 			}
 		}
-		
+		updateLabels();
 	}
 
 	public void btnBuyPropertyClicked() {
@@ -226,10 +250,12 @@ public class GameMaster {
 				gameBoard.btnBuyProperty.setEnabled(false);
 			}
 		}
+		updateLabels();
 	}
 	
 	public void btnTradeClicked() {
-		
+		trader();
+		updateLabels();
 	}
 	
 	public void btnPickCardClicked() {
@@ -295,12 +321,13 @@ public class GameMaster {
 		}
 		
 		disableAllButtons();
+		updateLabels();
 		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
 	private void trader() {
-		// TODO Auto-generated method stub
-		
+		// TODO And also this..
+		updateLabels();
 	}
 
 	public void btnPayBailClicked() {
@@ -318,11 +345,13 @@ public class GameMaster {
 			disableAllButtons();
 			gameBoard.btnPlay.setEnabled(true);
 		}
+		updateLabels();
 	}
 	
 	public void btnEndTurnClicked() {
 		disableAllButtons();
 		switchTurn();
+		updateLabels();
 	}
 
 	public void setGameBoard(Board b) {
@@ -330,14 +359,59 @@ public class GameMaster {
 	}
 
 	private void payTax(Player plr) {
-		
+		while (true) {
+			Cell x = (Cell) gameMaster.getCellAtPos(plr.getPosition());
+			int payable = x.getRent();
+			if (plr.getMoney() > payable) {
+				plr.subMoney(payable);
+				gameBoard.lblRent.setText("Paid tax of " + String.valueOf(payable));
+				break;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		updateLabels();
 		gameBoard.btnEndTurn.setEnabled(true);
 	}
 
-	private void payRent(Player plr, Property p) {
-		
+	private void payRent(Property p) {
+		Player plr = getCurrentPlayer();
+		Player oppnt = p.getPowner();
+		int rent = p.getRent();
+		while (true) {
+			if (plr.getMoney() > rent) {
+				plr.subMoney(rent);
+				oppnt.addMoney(rent);
+				gameBoard.lblRent.setText("Rent of " + String.valueOf(p.getRent()) + "paid to "+ oppnt.getName());
+				break;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				trader();
+			}
+		}
+		updateLabels();
 		disableAllButtons();
 		gameBoard.btnEndTurn.setEnabled(true);
 	}
+	
+	private void updateLabels() {
+		gameBoard.plr1.setText(playerList.get(0).getName());
+		gameBoard.lblmp1.setText(String.valueOf(playerList.get(0).getMoney()));
+		gameBoard.plr2.setText(playerList.get(1).getName());
+		gameBoard.lblmp2.setText(String.valueOf(playerList.get(1).getMoney()));
+		if (noOfPlayers > 2) {
+			gameBoard.plr3.setText(playerList.get(2).getName());
+			gameBoard.lblmp3.setText(String.valueOf(playerList.get(2).getMoney()));
+		}
+		if (noOfPlayers == 4) {
+			gameBoard.plr4.setText(playerList.get(3).getName());
+			gameBoard.lblmp4.setText(String.valueOf(playerList.get(3).getMoney()));
+		}
+	}
+	
 	
 }

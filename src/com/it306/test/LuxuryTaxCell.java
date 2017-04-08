@@ -16,6 +16,7 @@ public class LuxuryTaxCell extends Cell {
 		setBuyable(false);
 		setColourGroup("None");
 		setRent(value);
+		setTaxCollection(true);
 	}
 	
 }

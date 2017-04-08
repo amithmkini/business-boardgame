@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Board {
 
@@ -43,6 +44,20 @@ public class Board {
 	public JButton btnPayBail;
 	public JButton btnEndTurn;
 	public int i = 1;
+	public JPanel pnlPlr1;
+	public JPanel pnlPlr2;
+	public JPanel pnlPlr3;
+	public JPanel pnlPlr4;
+	public JLabel plr1;
+	public JLabel plr2;
+	public JLabel plr3;
+	public JLabel plr4;
+	public JLabel lblmp1;
+	public JLabel lblmp2;
+	public JLabel lblmp3;
+	public JLabel lblmp4;
+	public JLabel lblRent;
+	
 	/**
 	 * Create the application.
 	 */
@@ -190,6 +205,139 @@ public class Board {
 			arg3 = arg3 + 74;
 		}
 		
+		
+		pnlPlr1 = new JPanel();
+		pnlPlr1.setOpaque(false);
+		pnlPlr1.setBounds(127, 129, 196, 148);
+		frame.getContentPane().add(pnlPlr1);
+		pnlPlr1.setLayout(null);
+		
+		JLabel lblPlayer_1 = new JLabel("Player 1");
+		lblPlayer_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPlayer_1.setBounds(65, 13, 70, 20);
+		pnlPlr1.add(lblPlayer_1);
+		
+		plr1 = new JLabel("");
+		plr1.setHorizontalAlignment(SwingConstants.CENTER);
+		plr1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		plr1.setBounds(23, 46, 150, 25);
+		pnlPlr1.add(plr1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setOpaque(true);
+		label_2.setBackground(Color.RED);
+		label_2.setBounds(147, 12, 37, 25);
+		pnlPlr1.add(label_2);
+		
+		JLabel lblMoney = new JLabel("Money");
+		lblMoney.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMoney.setBounds(12, 97, 56, 25);
+		pnlPlr1.add(lblMoney);
+		
+		lblmp1 = new JLabel("");
+		lblmp1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblmp1.setBounds(79, 97, 94, 25);
+		pnlPlr1.add(lblmp1);
+		
+		pnlPlr2 = new JPanel();
+		pnlPlr2.setOpaque(false);
+		pnlPlr2.setBounds(577, 129, 196, 148);
+		frame.getContentPane().add(pnlPlr2);
+		pnlPlr2.setLayout(null);
+		
+		JLabel lblPlayer_2 = new JLabel("Player 2");
+		lblPlayer_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPlayer_2.setBounds(69, 13, 70, 20);
+		pnlPlr2.add(lblPlayer_2);
+		
+		plr2 = new JLabel("");
+		plr2.setHorizontalAlignment(SwingConstants.CENTER);
+		plr2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		plr2.setBounds(22, 46, 150, 25);
+		pnlPlr2.add(plr2);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setBackground(Color.BLUE);
+		label_3.setOpaque(true);
+		label_3.setBounds(147, 8, 37, 25);
+		pnlPlr2.add(label_3);
+		
+		JLabel label_7 = new JLabel("Money");
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_7.setBounds(22, 94, 56, 25);
+		pnlPlr2.add(label_7);
+		
+		lblmp2 = new JLabel("");
+		lblmp2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblmp2.setBounds(89, 94, 94, 25);
+		pnlPlr2.add(lblmp2);
+		
+		pnlPlr3 = new JPanel();
+		pnlPlr3.setOpaque(false);
+		pnlPlr3.setBounds(127, 620, 196, 148);
+		frame.getContentPane().add(pnlPlr3);
+		pnlPlr3.setLayout(null);
+		
+		JLabel lblPlayer_3 = new JLabel("Player 3");
+		lblPlayer_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPlayer_3.setBounds(65, 13, 70, 20);
+		pnlPlr3.add(lblPlayer_3);
+		
+		plr3 = new JLabel("");
+		plr3.setHorizontalAlignment(SwingConstants.CENTER);
+		plr3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		plr3.setBounds(22, 46, 150, 25);
+		pnlPlr3.add(plr3);
+		
+		JLabel label_4 = new JLabel("");
+		label_4.setOpaque(true);
+		label_4.setBackground(Color.GREEN);
+		label_4.setBounds(147, 8, 37, 25);
+		pnlPlr3.add(label_4);
+		
+		JLabel label_9 = new JLabel("Money");
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_9.setBounds(11, 98, 56, 25);
+		pnlPlr3.add(label_9);
+		
+		lblmp3 = new JLabel("");
+		lblmp3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblmp3.setBounds(78, 98, 94, 25);
+		pnlPlr3.add(lblmp3);
+		
+		pnlPlr4 = new JPanel();
+		pnlPlr4.setOpaque(false);
+		pnlPlr4.setBounds(577, 620, 196, 148);
+		frame.getContentPane().add(pnlPlr4);
+		pnlPlr4.setLayout(null);
+		
+		JLabel lblPlayer_4 = new JLabel("Player 4");
+		lblPlayer_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPlayer_4.setBounds(69, 13, 70, 20);
+		pnlPlr4.add(lblPlayer_4);
+		
+		plr4 = new JLabel("");
+		plr4.setHorizontalAlignment(SwingConstants.CENTER);
+		plr4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		plr4.setBounds(23, 46, 150, 25);
+		pnlPlr4.add(plr4);
+		
+		JLabel label_5 = new JLabel("");
+		label_5.setOpaque(true);
+		label_5.setBackground(Color.YELLOW);
+		label_5.setBounds(151, 8, 37, 25);
+		pnlPlr4.add(label_5);
+		
+		JLabel label_12 = new JLabel("Money");
+		label_12.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_12.setBounds(12, 99, 56, 25);
+		pnlPlr4.add(label_12);
+		
+		lblmp4 = new JLabel("");
+		lblmp4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblmp4.setBounds(79, 99, 94, 25);
+		pnlPlr4.add(lblmp4);
+		
 		// Player 1
 		p0 = new JLabel("1");
 		p0.setOpaque(true);
@@ -212,6 +360,7 @@ public class Board {
 		frame.getContentPane().add(p2);
 		if (choice < 3) {
 			p2.setVisible(false);
+			pnlPlr3.setVisible(false);
 		}
 		
 		// Player 4
@@ -222,6 +371,7 @@ public class Board {
 		frame.getContentPane().add(p3);
 		if (choice < 4) {
 			p3.setVisible(false);
+			pnlPlr4.setVisible(false);
 		}
 		
 		JPanel panel_1 = new JPanel();
@@ -298,6 +448,12 @@ public class Board {
 		btnEndTurn.setEnabled(false);
 		btnEndTurn.setBounds(12, 232, 172, 25);
 		panel_1.add(btnEndTurn);
+		
+		lblRent = new JLabel("");
+		lblRent.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblRent.setBounds(562, 373, 191, 54);
+		frame.getContentPane().add(lblRent);
+		
 		
 		JLabel bgLbl = new JLabel();
 		bgLbl.setBounds(0, 0, 904, 895);
