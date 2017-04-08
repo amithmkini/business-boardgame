@@ -1,8 +1,10 @@
 package com.it306.test.UI;
 
+import com.it306.test.Property;
+
 import java.awt.EventQueue;
 import java.awt.Font;
-
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,17 +15,21 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
-import com.it306.test.Property;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TradeUI {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField textField;
 	private JTable table;
 	private JTable table_1;
-
+	private ListSelectionModel listSelectionModel;
+	public ArrayList<Integer> output = new ArrayList<Integer>();
+		
 	/**
 	 * Launch the application.
 	 */
@@ -100,6 +106,9 @@ public class TradeUI {
 		table = new JTable();
 		table.setBounds(33, 208, 274, 301);
 		table.setRowSelectionAllowed(true);
+		listSelectionModel = table.getSelectionModel();
+        listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        table.setSelectionModel(listSelectionModel);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setDefaultEditor(Object.class, null);
 		
@@ -110,6 +119,13 @@ public class TradeUI {
 		frame.getContentPane().add(table_1);
 		
 		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (int x : output) {
+					System.out.println(x);
+				}
+			}
+		});
 		btnOk.setBounds(131, 540, 97, 25);
 		frame.getContentPane().add(btnOk);
 		
@@ -147,6 +163,33 @@ public class TradeUI {
 		DefaultTableModel tableModel = new DefaultTableModel(files, columnName);
 		table.setModel(tableModel);
 		table_1.setModel(tableModel);
+		
+		int[] selection = table.getSelectedRows();
+		for (int x : selection) {
+			System.out.println(x);
+		}
+		
 	}
 	
+	 class SharedListSelectionHandler implements ListSelectionListener {
+	        public void valueChanged(ListSelectionEvent e) { 
+	            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+	 
+	            if (lsm.isSelectionEmpty()) {
+	                ;
+	            } else {
+	                // Find out which indexes are selected.
+	                int minIndex = lsm.getMinSelectionIndex();
+	                int maxIndex = lsm.getMaxSelectionIndex();
+	                for (int i = minIndex; i <= maxIndex; i++) {
+	                    if (lsm.isSelectedIndex(i)) {
+	                        output.add(i);
+	                    }
+	                }
+	            }
+	        }
+	    }
+	
 }
+
+

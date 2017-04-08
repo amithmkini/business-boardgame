@@ -73,12 +73,10 @@ public class GameMaster {
 				switchTurn();
 			}
 			else {
-				//This is just a placeholder. Do something here.
 				play();
 			}
 		}
 		else {
-			//Display a banner saying that they won the game!
 			displayBanner(plr);
 		}
 	}
@@ -327,6 +325,8 @@ public class GameMaster {
 	
 	private void trader() {
 		// TODO And also this..
+		TradeUI dialog = new TradeUI();
+		dialog.frame.setVisible(true);
 		updateLabels();
 	}
 
