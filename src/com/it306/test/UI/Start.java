@@ -139,11 +139,23 @@ public class Start {
 		frame.getContentPane().add(btnStart);
 		
 		btnRules = new JButton("Rules");
-		btnRules.setBounds(42, 458, 97, 25);
+		btnRules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Rules r = new Rules();
+				r.frame.setVisible(true);
+			}
+		});
+		btnRules.setBounds(42, 434, 97, 73);
 		frame.getContentPane().add(btnRules);
 		
 		btnAbout = new JButton("About");
-		btnAbout.setBounds(174, 458, 97, 25);
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				About a = new About();
+				a.frame.setVisible(true);
+			}
+		});
+		btnAbout.setBounds(174, 434, 97, 73);
 		frame.getContentPane().add(btnAbout);
 		
 		JLabel lblSelectTheNo = new JLabel("Select the no. of players");

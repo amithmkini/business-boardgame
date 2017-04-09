@@ -104,8 +104,9 @@ public class GameMaster {
 	}
 	
 	private void displayBanner(Player x) {
-		// TODO Finish this part...
-		
+		JOptionPane.showMessageDialog(null, x.getName() + " won the game!",
+				"Message", JOptionPane.INFORMATION_MESSAGE);
+		gameBoard.frame.dispose();
 		
 	}
 

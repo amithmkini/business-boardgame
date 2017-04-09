@@ -108,7 +108,7 @@ public class TradeUI {
 		lblCashOffered.setBounds(12, 119, 123, 26);
 		frame.getContentPane().add(lblCashOffered);
 		
-		textField = new JTextField();
+		textField = new JTextField("0");
 		textField.setBounds(147, 122, 149, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -155,7 +155,8 @@ public class TradeUI {
 					}
 					
 					int dialogButton = JOptionPane.YES_NO_OPTION;
-					int dialogResult = JOptionPane.showConfirmDialog(null, choice + ", would you like to complete this trade?","Trade",dialogButton);
+					int dialogResult = JOptionPane.showConfirmDialog(null, choice + ", would you like to "
+							+ "complete this trade?","Trade",dialogButton);
 					if (dialogResult == JOptionPane.YES_OPTION) {
 						//Complete the transaction
 						
@@ -196,7 +197,8 @@ public class TradeUI {
 				else {
 					
 					int dialogButton = JOptionPane.YES_NO_OPTION;
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to sell it back to the bank at 50% of original price?","Trade",dialogButton);
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to sell it back"
+							+ "to the bank at 50% of original price?","Trade",dialogButton);
 					
 					if (dialogResult == JOptionPane.YES_OPTION) {
 						for (Property x : plrProp) {
