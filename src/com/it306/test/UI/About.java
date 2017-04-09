@@ -25,7 +25,7 @@ public class About {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 542, 406);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblAbout = new JLabel("About");
