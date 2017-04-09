@@ -136,22 +136,15 @@ public class Player {
 	}
 	
 	public void addProperty(Property a) {
-		if (properties.contains(a)) {
-			//Display a message to show that he already has this property.
-		}
-		else if (a.getValue() > money) {
-			//Display a message to show that he has insufficient funds.
-		}
-		else if (!a.getOwner().equals("Bank")){
-			Player other = a.getPowner();
-			String name = other.getName();
-			System.out.println(name);
-			//Display the name of the player it belongs to.
-		}
+		properties.add(a);
 	}
 	
 	public ArrayList<Property> getPropertyList() {
 		return properties;
+	}
+	
+	public void removeProperty(Property e) {
+		properties.remove(e);
 	}
 	
 	public ArrayList<Integer> rollDice() {

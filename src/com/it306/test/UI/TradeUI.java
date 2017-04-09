@@ -1,24 +1,23 @@
 package com.it306.test.UI;
 
-import com.it306.test.Property;
-
-import java.awt.EventQueue;
+import com.it306.test.*;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
 public class TradeUI {
@@ -27,29 +26,31 @@ public class TradeUI {
 	private JTextField textField;
 	private JTable table;
 	private JTable table_1;
-	private ListSelectionModel listSelectionModel;
 	public ArrayList<Integer> output = new ArrayList<Integer>();
-		
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TradeUI window = new TradeUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private String choice = "Bank";
+	private GameMaster gameMaster;
+	private Player plr;
+	private Player oppnt;
+	private String[] plrList;
+	ArrayList<Property> propList;
+	ArrayList<Property> oppoList;
 
 	/**
 	 * Create the application.
 	 */
 	public TradeUI() {
+		gameMaster = GameMaster.instance();
+		plr = gameMaster.getCurrentPlayer();
+		int num = gameMaster.noOfPlayers;
+		plrList = new String[num];
+		plrList[0] = "Bank";
+		int index = 1;
+		for (int i = 0; i < gameMaster.noOfPlayers; i++) {
+			if (gameMaster.playerList.get(i).getName() != plr.getName()) {
+				plrList[index] = gameMaster.playerList.get(i).getName();
+				index = index + 1;
+			}
+		}
 		try {         
           	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());     
      	}catch (ClassNotFoundException e) {
@@ -71,7 +72,7 @@ public class TradeUI {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 666, 637);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblPlayer = new JLabel("Player:");
@@ -79,7 +80,7 @@ public class TradeUI {
 		lblPlayer.setBounds(12, 53, 66, 26);
 		frame.getContentPane().add(lblPlayer);
 		
-		JLabel label = new JLabel("");
+		JLabel label = new JLabel(gameMaster.getCurrentPlayer().getName());
 		label.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		label.setBounds(100, 53, 196, 26);
 		frame.getContentPane().add(label);
@@ -89,8 +90,17 @@ public class TradeUI {
 		lblSelectPlayer.setBounds(319, 53, 123, 26);
 		frame.getContentPane().add(lblSelectPlayer);
 		
-		JComboBox<Property> comboBox = new JComboBox<Property>();
+		JComboBox<String> comboBox = new JComboBox<String>(plrList);
+//		JComboBox comboBox = new JComboBox(plrList);
 		comboBox.setBounds(454, 58, 149, 22);
+		comboBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				choice = (String) arg0.getItem();
+				developTable();
+				table.repaint();
+			}
+		});
 		frame.getContentPane().add(comboBox);
 		
 		JLabel lblCashOffered = new JLabel("Cash offered:");
@@ -106,23 +116,103 @@ public class TradeUI {
 		table = new JTable();
 		table.setBounds(33, 208, 274, 301);
 		table.setRowSelectionAllowed(true);
-		listSelectionModel = table.getSelectionModel();
-        listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
-        table.setSelectionModel(listSelectionModel);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setDefaultEditor(Object.class, null);
-		
 		frame.getContentPane().add(table);
 		
 		table_1 = new JTable();
 		table_1.setBounds(342, 208, 274, 301);
+		table.setRowSelectionAllowed(true);
+		table_1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table_1.setDefaultEditor(Object.class, null);
 		frame.getContentPane().add(table_1);
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for (int x : output) {
-					System.out.println(x);
+				int[] sel1 = table.getSelectedRows();
+				int[] sel2 = table_1.getSelectedRows();
+				
+				int price = Integer.valueOf(textField.getText());
+				
+				ArrayList<Property> plrProp = new ArrayList<Property>();
+				int total = 0;
+				for (int x : sel1) {
+					plrProp.add(propList.get(x));
+					total = total + propList.get(x).getValue();
+				}
+				
+				if (price > plr.getMoney()) {
+					JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+							"Message", JOptionPane.INFORMATION_MESSAGE);
+					frame.dispose();
+				}
+				
+				if (choice != "Bank") {
+					ArrayList<Property> oppProp = new ArrayList<Property>();
+					for (int x : sel2) {
+						oppProp.add(propList.get(x));
+					}
+					
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog(null, choice + ", would you like to complete this trade?","Trade",dialogButton);
+					if (dialogResult == JOptionPane.YES_OPTION) {
+						//Complete the transaction
+						
+						if (oppnt.getMoney() < -price) {
+							JOptionPane.showMessageDialog(null, "You have insufficient funds!",
+									"Message", JOptionPane.INFORMATION_MESSAGE);
+							frame.dispose();
+						}
+						
+						else {
+							// Transfer of assets
+							for (Property x : plrProp) {
+								System.out.println("From player: " + x.getName());
+								x.setOwner(oppnt.getName());
+								x.setPowner(oppnt);
+								plr.removeProperty(x);
+							}
+							for (Property y : oppProp) {
+								System.out.println("From opponent:" + y.getName());
+								y.setOwner(plr.getName());
+								y.setPowner(plr);
+								oppnt.removeProperty(y);
+							}
+							
+							oppnt.addMoney(price);
+							plr.subMoney(price);
+							JOptionPane.showMessageDialog(null, "Transaction complete!",
+									"Message", JOptionPane.INFORMATION_MESSAGE);
+							frame.dispose();
+						}
+						
+					}
+					else if (dialogResult == JOptionPane.NO_OPTION) {
+						frame.dispose();
+					}
+					
+				}
+				else {
+					
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to sell it back to the bank at 50% of original price?","Trade",dialogButton);
+					
+					if (dialogResult == JOptionPane.YES_OPTION) {
+						for (Property x : plrProp) {
+							x.setPowner(null);
+							x.setOwner("Bank");
+							plr.removeProperty(x);
+						}
+						plr.addMoney(total/2);
+						JOptionPane.showMessageDialog(null, "Transaction complete!",
+								"Message", JOptionPane.INFORMATION_MESSAGE);
+						frame.dispose();
+					}
+					else {
+						frame.dispose();
+					}
+					
 				}
 			}
 		});
@@ -130,13 +220,18 @@ public class TradeUI {
 		frame.getContentPane().add(btnOk);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
 		btnCancel.setBounds(435, 540, 97, 25);
 		frame.getContentPane().add(btnCancel);
 		
 		JLabel lblYou = new JLabel("You");
 		lblYou.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblYou.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYou.setBounds(131, 179, 56, 16);
+		lblYou.setBounds(131, 161, 56, 16);
 		frame.getContentPane().add(lblYou);
 		
 		JLabel lblOther = new JLabel("");
@@ -145,51 +240,75 @@ public class TradeUI {
 		lblOther.setBounds(406, 179, 149, 16);
 		frame.getContentPane().add(lblOther);
 		
+		JLabel lblProperty = new JLabel("Property");
+		lblProperty.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProperty.setBounds(46, 183, 76, 22);
+		frame.getContentPane().add(lblProperty);
+		
+		JLabel label_1 = new JLabel("Property");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_1.setBounds(359, 187, 76, 22);
+		frame.getContentPane().add(label_1);
+		
+		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPrice.setBounds(204, 187, 76, 22);
+		frame.getContentPane().add(lblPrice);
+		
+		JLabel label_2 = new JLabel("Price");
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_2.setBounds(527, 187, 76, 22);
+		frame.getContentPane().add(label_2);
+		
 		developTable();
 		
 	}
 
 	void developTable(){
-		String[] columnName = new String[1];
-		columnName[0] = "Files";
+		
+		String[] columnName = new String[2];
+		Player plr = gameMaster.getCurrentPlayer();
+		propList = plr.getPropertyList();
 
-		String[] list = {"A", "B", "C"};
-
-		String[][] files = new String[list.length][1];
-		for (int i = 0; i < list.length; i++) {
-			files[i][0] = list[i];
+		columnName[0] = "Properties";
+		columnName[1] = "Price";
+		
+		String[][] pList1 = new String[propList.size()][2];
+		
+		for (int i = 0; i < propList.size(); i++) {
+			pList1[i][0] = propList.get(i).getName();
+			pList1[i][1] = String.valueOf(propList.get(i).getValue());
+		}		
+		
+		DefaultTableModel tableModel1 = new DefaultTableModel(pList1, columnName);
+		table.setModel(tableModel1);
+		
+		tableModel1.fireTableDataChanged();
+		table.repaint();
+		
+		if (choice != "Bank") {
+			oppnt = null;
+			for (Player x : gameMaster.playerList) {
+				if (choice == x.getName()) {
+					oppnt = x;
+					break;
+				}
+			}
+			oppoList = oppnt.getPropertyList();
+			String[][] pList2 = new String[oppoList.size()][2];
+			
+			for (int i = 0; i < oppoList.size(); i++) {
+				pList2[i][0] = oppoList.get(i).getName();
+				pList2[i][1] = String.valueOf(oppoList.get(i).getValue());
+			}
+			
+			DefaultTableModel tableModel2 = new DefaultTableModel(pList2, columnName);
+			table_1.setModel(tableModel2);
+			tableModel2.fireTableDataChanged();
+			table_1.repaint();
+			
 		}
-		
-		DefaultTableModel tableModel = new DefaultTableModel(files, columnName);
-		table.setModel(tableModel);
-		table_1.setModel(tableModel);
-		
-		int[] selection = table.getSelectedRows();
-		for (int x : selection) {
-			System.out.println(x);
-		}
-		
 	}
-	
-	 class SharedListSelectionHandler implements ListSelectionListener {
-	        public void valueChanged(ListSelectionEvent e) { 
-	            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-	 
-	            if (lsm.isSelectionEmpty()) {
-	                ;
-	            } else {
-	                // Find out which indexes are selected.
-	                int minIndex = lsm.getMinSelectionIndex();
-	                int maxIndex = lsm.getMaxSelectionIndex();
-	                for (int i = minIndex; i <= maxIndex; i++) {
-	                    if (lsm.isSelectedIndex(i)) {
-	                        output.add(i);
-	                    }
-	                }
-	            }
-	        }
-	    }
-	
 }
 
 

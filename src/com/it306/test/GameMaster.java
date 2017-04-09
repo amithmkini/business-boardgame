@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class GameMaster {
-	private int noOfPlayers;
+	public int noOfPlayers;
 	// This is a static class as this should be instantiated only once.
 	private static GameMaster gameMaster;
 	// The gameboard
@@ -105,6 +105,7 @@ public class GameMaster {
 	
 	private void displayBanner(Player x) {
 		// TODO Finish this part...
+		
 		
 	}
 
@@ -324,7 +325,6 @@ public class GameMaster {
 	}
 	
 	private void trader() {
-		// TODO And also this..
 		TradeUI dialog = new TradeUI();
 		dialog.frame.setVisible(true);
 		updateLabels();
@@ -364,7 +364,7 @@ public class GameMaster {
 			int payable = x.getRent();
 			if (plr.getMoney() > payable) {
 				plr.subMoney(payable);
-				gameBoard.lblRent.setText("Paid tax of " + String.valueOf(payable));
+				gameBoard.lblRent.setText("Paid tax of $" + String.valueOf(payable));
 				break;
 			}
 			else {
@@ -384,7 +384,7 @@ public class GameMaster {
 			if (plr.getMoney() > rent) {
 				plr.subMoney(rent);
 				oppnt.addMoney(rent);
-				gameBoard.lblRent.setText("Rent of " + String.valueOf(p.getRent()) + "paid to "+ oppnt.getName());
+				gameBoard.lblRent.setText("Rent of $" + String.valueOf(p.getRent()) + " paid to "+ oppnt.getName());
 				break;
 			}
 			else {
