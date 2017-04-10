@@ -1,9 +1,9 @@
 package com.it306.test;
 
 /**
- * This class is under testing. This class is used to create the
+ * This class is used to create the
  * cells and assign them to their respective cells.
- * 
+ * Generated using Python code at /src/media 
  * @author Amith Kini
  */
 

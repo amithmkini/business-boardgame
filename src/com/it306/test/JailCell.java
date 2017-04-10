@@ -1,5 +1,12 @@
 package com.it306.test;
 
+/**
+ * The Jail cell.
+ * 
+ * @author Amith Kini
+ *
+ */
+
 public class JailCell extends Cell {
 	
 	public JailCell(int pos) {

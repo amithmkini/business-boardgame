@@ -1,5 +1,12 @@
 package com.it306.test.UI;
 
+/**
+ * This is the Trade UI. The Player can buy or sell properties
+ * to the bank or to another player.
+ * 
+ * @author Amith Kini
+ */
+
 import com.it306.test.*;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -91,7 +98,6 @@ public class TradeUI {
 		frame.getContentPane().add(lblSelectPlayer);
 		
 		JComboBox<String> comboBox = new JComboBox<String>(plrList);
-//		JComboBox comboBox = new JComboBox(plrList);
 		comboBox.setBounds(454, 58, 149, 22);
 		comboBox.addItemListener(new ItemListener() {
 			@Override
@@ -151,7 +157,7 @@ public class TradeUI {
 				if (choice != "Bank") {
 					ArrayList<Property> oppProp = new ArrayList<Property>();
 					for (int x : sel2) {
-						oppProp.add(propList.get(x));
+						oppProp.add(oppoList.get(x));
 					}
 					
 					int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -172,12 +178,14 @@ public class TradeUI {
 								System.out.println("From player: " + x.getName());
 								x.setOwner(oppnt.getName());
 								x.setPowner(oppnt);
+								oppnt.addProperty(x);
 								plr.removeProperty(x);
 							}
 							for (Property y : oppProp) {
 								System.out.println("From opponent:" + y.getName());
 								y.setOwner(plr.getName());
 								y.setPowner(plr);
+								plr.addProperty(y);
 								oppnt.removeProperty(y);
 							}
 							

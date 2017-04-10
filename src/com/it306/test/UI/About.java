@@ -1,5 +1,12 @@
 package com.it306.test.UI;
 
+/**
+ * This shows the about page of the game.
+ * Formatted with HTML.
+ * 
+ * @author Amith Kini
+ */
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;

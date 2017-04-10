@@ -1,5 +1,11 @@
 package com.it306.test;
 
+/**
+ * The community chest cards.
+ * 
+ * @author Amith Kini
+ */
+
 import java.util.ArrayList;
 
 public class CommunityBuilder {

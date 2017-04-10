@@ -1,5 +1,12 @@
 package com.it306.test;
 
+/**
+ * The property class. Extends Cell and adds method to store
+ * Player object reference.
+ * @author Amith Kini
+ *
+ */
+
 public class Property extends Cell{
 	
 	private Player powner;
