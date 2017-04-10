@@ -216,7 +216,7 @@ public class GameMaster {
 			else if (current.isTaxCollection()) {
 				payTax(plr);
 			}
-			else if (current.getOwner() != "Bank") {
+			else if (current.getOwner() != "Bank" && current.getOwner() != plr.getName()) {
 				Property prop = (Property) getCellAtPos(plr.getPosition());
 				payRent(prop);
 			}
@@ -260,7 +260,6 @@ public class GameMaster {
 	
 	public void btnPickCardClicked() {
 		Player plr = getCurrentPlayer();
-		int value = plr.getMoney();
 		Cell x = (Cell) getCellAtPos(plr.getPosition());
 		Card picked = null;
 		int card_num = -1;
@@ -278,6 +277,7 @@ public class GameMaster {
 		}
 		boolean f = true;
 		while (f) {
+			int value = plr.getMoney();
 			if (picked.pos == -1) {
 				if (value < - picked.value) {
 					JOptionPane.showMessageDialog(null, "You have insufficient funds!",
@@ -315,6 +315,10 @@ public class GameMaster {
 				gameBoard.setPlayerPos(new_pos, plr);
 				if (new_pos == 30) {
 					plr.setInJail(true);
+				}
+				Cell current = (Cell) getCellAtPos(plr.getPosition());
+				if (current.getOwner() == "Bank" && current.isBuyable()) {
+					gameBoard.btnBuyProperty.setEnabled(true);
 				}
 				f = false;
 			}
