@@ -78,6 +78,7 @@ public class TradeUI {
 	private void initialize() {
 		
 		frame = new JFrame();
+		frame.setTitle("Trade");
 		frame.setBounds(100, 100, 666, 637);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

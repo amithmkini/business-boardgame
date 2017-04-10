@@ -73,6 +73,7 @@ public class Board {
 		
 		cellList = GameMaster.instance().cellList;
 		frame = new JFrame();
+		frame.setTitle("Business!");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 910, 930);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

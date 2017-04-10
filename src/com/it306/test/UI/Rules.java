@@ -31,6 +31,7 @@ public class Rules {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Rules");
 		frame.setBounds(100, 100, 796, 744);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

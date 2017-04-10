@@ -25,7 +25,6 @@ import java.awt.event.ActionEvent;
 
 public class Start {
 
-	@SuppressWarnings("unused")
 	private GameMaster gameMaster;
 	private Board gameBoard;
 	private JFrame frame;
@@ -81,6 +80,7 @@ public class Start {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Business!");
 		frame.setBounds(100, 100, 715, 585);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -127,7 +127,7 @@ public class Start {
 				}
 				//Everything starts from here.
 				frame.dispose();
-				GameMaster gameMaster = GameMaster.instance();
+				gameMaster = GameMaster.instance();
 				gameBoard = new Board(choice);
 				gameMaster.setGameBoard(gameBoard);
 				gameMaster.setPlayers(players);

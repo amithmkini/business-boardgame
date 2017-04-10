@@ -35,6 +35,7 @@ public class PropertyInfo {
 	private void initialize(Cell cell) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 469, 419);
+		frame.setTitle("Information");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
