@@ -14,14 +14,18 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+
 public class GameMaster {
+	
+	
+	public final static Object obj = new Object();
 	public int noOfPlayers;
 	// This is a static class as this should be instantiated only once.
 	private static GameMaster gameMaster;
 	// The gameboard
 	private Board gameBoard;
 	// Initial money assigned to each player
-	private int initMoney = 1500;
+	private int initMoney = 10;
 	private int bailAmt = 500;
 	// The list of players in the game. Made public so that other classes
 	// can access it.
@@ -31,7 +35,8 @@ public class GameMaster {
 	public ArrayList<Object> cellList = new ArrayList<Object>();
 	public ArrayList<Card> chanceCards;
 	public ArrayList<Card> communityCards;
-	
+	TradeUI trade;
+	int flag = 0;
 	
 	public static GameMaster instance() {
 		if (gameMaster == null) {
@@ -296,7 +301,9 @@ public class GameMaster {
 						plr.destroy();
 						f = false;
 					}
-					trader();
+					else {
+						Debt t = new Debt();
+					}
 					continue;
 				}
 				else {
@@ -316,22 +323,26 @@ public class GameMaster {
 				if (new_pos == 30) {
 					plr.setInJail(true);
 				}
-				Cell current = (Cell) getCellAtPos(plr.getPosition());
-				if (current.getOwner() == "Bank" && current.isBuyable()) {
-					gameBoard.btnBuyProperty.setEnabled(true);
-				}
+				
 				f = false;
 			}
 		}
 		
 		disableAllButtons();
+		Cell current = (Cell) getCellAtPos(plr.getPosition());
+		if (current.getOwner() == "Bank" && current.isBuyable()) {
+			gameBoard.btnBuyProperty.setEnabled(true);
+		}
+		else if (current.getOwner() != "Bank" && current.getOwner() != plr.getName()) {
+			payRent((Property) getCellAtPos(plr.getPosition()));
+		}
 		updateLabels();
 		gameBoard.btnEndTurn.setEnabled(true);
 	}
 	
 	private void trader() {
-		TradeUI dialog = new TradeUI();
-		dialog.frame.setVisible(true);
+		trade = new TradeUI();
+		trade.frame.setVisible(true);
 		updateLabels();
 	}
 
@@ -362,6 +373,10 @@ public class GameMaster {
 	public void setGameBoard(Board b) {
 		this.gameBoard = b;
 	}
+	
+	public Board getGameBoard() {
+		return gameBoard;
+	}
 
 	private void payTax(Player plr) {
 		while (true) {
@@ -375,6 +390,7 @@ public class GameMaster {
 			else {
 				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
+				Debt t = new Debt();
 			}
 		}
 		updateLabels();
@@ -395,7 +411,7 @@ public class GameMaster {
 			else {
 				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
-				trader();
+				Debt t = new Debt();
 			}
 		}
 		updateLabels();

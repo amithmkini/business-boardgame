@@ -176,14 +176,12 @@ public class TradeUI {
 						else {
 							// Transfer of assets
 							for (Property x : plrProp) {
-								System.out.println("From player: " + x.getName());
 								x.setOwner(oppnt.getName());
 								x.setPowner(oppnt);
 								oppnt.addProperty(x);
 								plr.removeProperty(x);
 							}
 							for (Property y : oppProp) {
-								System.out.println("From opponent:" + y.getName());
 								y.setOwner(plr.getName());
 								y.setPowner(plr);
 								plr.addProperty(y);
