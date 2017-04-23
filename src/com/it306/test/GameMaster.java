@@ -302,6 +302,7 @@ public class GameMaster {
 						f = false;
 					}
 					else {
+						@SuppressWarnings("unused")
 						Debt t = new Debt();
 					}
 					continue;
@@ -390,6 +391,7 @@ public class GameMaster {
 			else {
 				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
+				@SuppressWarnings("unused")
 				Debt t = new Debt();
 			}
 		}
@@ -411,6 +413,7 @@ public class GameMaster {
 			else {
 				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
+				@SuppressWarnings("unused")
 				Debt t = new Debt();
 			}
 		}
