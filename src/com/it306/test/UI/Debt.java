@@ -21,15 +21,16 @@ public class Debt {
 	public ArrayList<Property> propList;
 	
 	public Debt() {
-		initialize();
 		gameMaster = GameMaster.instance();
 		plr = gameMaster.getCurrentPlayer();
+		initialize();
 	}
 	
 	public void initialize() {
 		
 		JDialog d = new JDialog();
 		d.setAlwaysOnTop(true);
+		d.setBounds(100, 100, 444, 560);
 		d.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		d.setTitle("Sell to Bank");
 		d.setModal(true);
@@ -39,6 +40,7 @@ public class Debt {
 		lblPlayer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPlayer.setBounds(23, 13, 67, 20);
 		d.getContentPane().add(lblPlayer);
+		
 		
 		JLabel label = new JLabel(plr.getName());
 		label.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -82,11 +84,10 @@ public class Debt {
 		
 		JLabel lblSelectTheProperty = new JLabel("<html><body>Select the property to sell it back to the bank for 50% of the actual cost.</body></html>");
 		lblSelectTheProperty.setBounds(33, 46, 360, 52);
-		d.getContentPane().add(lblSelectTheProperty);
-		d.setVisible(true);
+		d.getContentPane().add(lblSelectTheProperty);		
 		
 		developTable();
-		
+		d.setVisible(true);
 	}
 	
 	void developTable() {

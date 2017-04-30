@@ -25,7 +25,7 @@ public class GameMaster {
 	// The gameboard
 	private Board gameBoard;
 	// Initial money assigned to each player
-	private int initMoney = 10;
+	private int initMoney = 1500;
 	private int bailAmt = 500;
 	// The list of players in the game. Made public so that other classes
 	// can access it.
@@ -293,6 +293,9 @@ public class GameMaster {
 					for (Property p : plr.getPropertyList()) {
 						total_value = total_value + p.getValue();
 					}
+					
+					total_value /= 2;
+					
 					if (total_value + plr.getMoney() < - picked.value) {
 						JOptionPane.showMessageDialog(null, "You have insufficient funds and you "
 								+ "cannot pay the money!",
@@ -313,7 +316,7 @@ public class GameMaster {
 				}
 			}
 			else {
-//					Movement of player happens here.
+				//Movement of player happens here.
 				if (plr.getPosition() > picked.pos) {
 					//Collect GO money
 					plr.addMoney(200);
@@ -383,16 +386,33 @@ public class GameMaster {
 		while (true) {
 			Cell x = (Cell) gameMaster.getCellAtPos(plr.getPosition());
 			int payable = x.getRent();
-			if (plr.getMoney() > payable) {
+			if (plr.getMoney() >= payable) {
 				plr.subMoney(payable);
 				gameBoard.lblRent.setText("Paid tax of $" + String.valueOf(payable));
 				break;
 			}
+			int total_value = 0;
+			for (Property p : plr.getPropertyList()) {
+				total_value = total_value + p.getValue();
+			}
+			
+			total_value /= 2;
+			
+			if (total_value + plr.getMoney() < payable) {
+				JOptionPane.showMessageDialog(null, "You have insufficient funds and you "
+						+ "cannot pay the money!",
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+				plr.setOut(true);
+				plr.destroy();
+				break;
+			}
 			else {
+				
 				JOptionPane.showMessageDialog(null, "You have insufficient funds!",
 						"Message", JOptionPane.INFORMATION_MESSAGE);
 				@SuppressWarnings("unused")
 				Debt t = new Debt();
+				
 			}
 		}
 		updateLabels();
@@ -436,6 +456,5 @@ public class GameMaster {
 			gameBoard.lblmp4.setText(String.valueOf(playerList.get(3).getMoney()));
 		}
 	}
-	
 	
 }

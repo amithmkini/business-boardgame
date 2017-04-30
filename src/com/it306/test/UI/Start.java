@@ -1,4 +1,3 @@
-
 package com.it306.test.UI;
 
 /** 
@@ -41,6 +40,7 @@ public class Start {
 	private static Integer[] plrs = {2,3,4};
 	private int choice = 2;
 	private ArrayList<String> players = new ArrayList<String>();
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -127,6 +127,26 @@ public class Start {
 					players.add(plr3);
 				}
 				//Everything starts from here.
+				//Check for empty player names.
+				for (String x: players) {
+					if (x.equals("")) {
+						label.setText("<html><body><h3>Enter a valid player name!</h3></body></html>");
+						players.clear();
+						return;
+					}
+				}
+				
+				//Check for duplicate names.
+				for (int i = 0; i < players.size() - 1; i++) {
+					for (int j = i+1; j < players.size(); j++) {
+						if (players.get(i).equals(players.get(j))) {
+							label.setText("<html><body><h3>Same player names cannot be assigned!</h3></body></html>");
+							players.clear();
+							return;
+						}
+					}
+				}
+				
 				frame.dispose();
 				gameMaster = GameMaster.instance();
 				gameBoard = new Board(choice);
@@ -185,13 +205,13 @@ public class Start {
 		textField_3.setColumns(10);
 		textField_3.setBounds(370, 377, 130, 22);
 		frame.getContentPane().add(textField_3);
-//		JComboBox comboBox = new JComboBox(plrs);
 		JComboBox<Integer> comboBox = new JComboBox<Integer>(plrs);
 		comboBox.setBounds(226, 145, 65, 22);
 		frame.getContentPane().add(comboBox);
 		
 		comboBox.addItemListener(new ItemListener(){
 
+			//This is used to change the number of players dynamically.
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				choice = (int) arg0.getItem();
@@ -217,7 +237,8 @@ public class Start {
 			
 		});
 		
-		JLabel label = new JLabel("");
+		// Label for displaying error messages.
+		label = new JLabel("");
 		label.setBounds(54, 230, 237, 137);
 		frame.getContentPane().add(label);
 	}
